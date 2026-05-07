@@ -1,8 +1,6 @@
 package Jeu;
 
-/**
- * 
- */
+
 public class Terrain {
 
     /**
