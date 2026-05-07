@@ -1,3 +1,4 @@
+package Jeu;
 
 import java.io.*;
 import java.util.*;
