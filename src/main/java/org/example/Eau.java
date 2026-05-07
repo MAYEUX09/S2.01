@@ -1,7 +1,31 @@
-public class Eau {
-    int Eau;
 
-    public Eau(int Eau) {
-        this.Eau = Eau;
+import java.io.*;
+import java.util.*;
+
+/**
+ *
+ */
+public class Eau {
+
+    /**
+     * Default constructor
+     */
+    public Eau() {
     }
+
+    /**
+     *
+     */
+    private int id;
+
+    /**
+     *
+     */
+    public Secteurs LesSecteurs;
+
+    /**
+     *
+     */
+    public Secteur Eau;
+
 }
