@@ -23,43 +23,31 @@ public class Monde {
                 grille[i][j] = new Secteur(new Terrain(id)); // Partie Ambiguïe et non complète en attente de terrain
             }
         }
-        // Ajout de 10 plan d'eau à des endroits aléatoire de la case
         Random rand = new Random();
-        for (int i = 0; i < 10; i++) {
-            int colonne = rand.nextInt(10); // nombre aléatoire entre 0 et 9
-            int ligne = rand.nextInt(10);// nombre aléatoire entre 0 et 9
-            grille[ligne][colonne] = new Secteur(new Eau(ligne * 10 + colonne)); // Partie Ambiguïe et non complète en attente de Eau
+        // Ajout de 10 plan d'eau à des endroits aléatoire de la case
+        int eauPlacee = 0;
+        while (eauPlacee < 10){
+            int ligne = rand.nextInt(10);
+            int colonne = rand.nextInt(10);
+            if (grille[ligne][colonne] == null){
+                grille[ligne][colonne] = new Secteur(new Eau());
+                eauPlacee++;
+            }
         }
+
         // Ajout de mine aléatoirement
         int nbMinesNI = rand.nextInt(2) + 1; // 1 ou 2
         int nbMinesOR = rand.nextInt(2) + 1; // 1 ou 2
         int idMine = 1;
-
-        // Mines Nickel
-        for (int i = 0; i < nbMinesNI; i++) {
+        int minesplacees = 0;
+        while (minesplacees < nbMinesNI){
             int ligne = rand.nextInt(10);
             int colonne = rand.nextInt(10);
-            if (grille[ligne][colonne].getMine() == null) { // Vérifier avec l'équipe
-                int capacite = rand.nextInt(51) + 50; // entre 50 et 100
+            if (!grille[ligne][colonne].getMine()){
                 Mine mine = new Mine(idMine, "NI", capacite, capacite);
-                grille[ligne][colonne].setMine(mine); // vérifier avec l'équipe
-                idMine++;
+                grille[ligne][colonne].setMine(mine);
             }
         }
-
-        // Mines OR
-        for (int i = 0; i < nbMinesOR; i++) {
-            int ligne = rand.nextInt(10);
-            int colonne = rand.nextInt(10);
-            if (grille[ligne][colonne].getMine() == null) { // Vérifier avec l'équipe
-                int capacite = rand.nextInt(51) + 50; // entre 50 et 100
-                Mine mine = new Mine(idMine, "OR", capacite, capacite);
-                grille[ligne][colonne].setMine(mine); // vérifier avec l'équipe
-                idMine++;
-            }
-        }
-
-        // Entrepot
     }
 
 

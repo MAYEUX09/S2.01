@@ -84,4 +84,6 @@ public class Secteur {
         // TODO implement here
     }
 
+    public boolean getMine() {
+    }
 }

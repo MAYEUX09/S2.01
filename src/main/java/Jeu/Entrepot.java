@@ -3,14 +3,14 @@ package Jeu;
 
 public class Entrepot {
 
-    // Attributs
+
     private int id;
     private String minerais;
     private int ligne;
     private int colonne;
     private int stock;
 
-    // Constructeur
+
     public Entrepot(int id, String minerais, int ligne, int colonne) {
         this.id = id;
         this.minerais = minerais;
