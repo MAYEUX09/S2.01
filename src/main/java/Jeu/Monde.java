@@ -30,6 +30,36 @@ public class Monde {
             int ligne = rand.nextInt(10);// nombre aléatoire entre 0 et 9
             grille[ligne][colonne] = new Secteur(new Eau(ligne * 10 + colonne)); // Partie Ambiguïe et non complète en attente de Eau
         }
+        // Ajout de mine aléatoirement
+        int nbMinesNI = rand.nextInt(2) + 1; // 1 ou 2
+        int nbMinesOR = rand.nextInt(2) + 1; // 1 ou 2
+        int idMine = 1;
+
+        // Mines Nickel
+        for (int i = 0; i < nbMinesNI; i++) {
+            int ligne = rand.nextInt(10);
+            int colonne = rand.nextInt(10);
+            if (grille[ligne][colonne].getMine() == null) { // Vérifier avec l'équipe
+                int capacite = rand.nextInt(51) + 50; // entre 50 et 100
+                Mine mine = new Mine(idMine, "NI", capacite, capacite);
+                grille[ligne][colonne].setMine(mine); // vérifier avec l'équipe
+                idMine++;
+            }
+        }
+
+        // Mines OR
+        for (int i = 0; i < nbMinesOR; i++) {
+            int ligne = rand.nextInt(10);
+            int colonne = rand.nextInt(10);
+            if (grille[ligne][colonne].getMine() == null) { // Vérifier avec l'équipe
+                int capacite = rand.nextInt(51) + 50; // entre 50 et 100
+                Mine mine = new Mine(idMine, "OR", capacite, capacite);
+                grille[ligne][colonne].setMine(mine); // vérifier avec l'équipe
+                idMine++;
+            }
+        }
+
+        // Entrepot
     }
 
 
