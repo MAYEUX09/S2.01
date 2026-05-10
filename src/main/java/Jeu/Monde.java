@@ -72,6 +72,7 @@ public class Monde {
                 mineORsplacees++;
                 idMine++;
             }
+        }
 
             // Ajout de l'entrepôt d'Or
             boolean entrepotOrPlace = false;
