@@ -72,6 +72,33 @@ public class Monde {
                 mineORsplacees++;
                 idMine++;
             }
+
+            // Ajout de l'entrepôt d'Or
+            boolean entrepotOrPlace = false;
+            while (!entrepotOrPlace) {
+                int ligne = rand.nextInt(10);
+                int colonne = rand.nextInt(10);
+
+                // On vérifie qu'il n'y a ni mine, ni eau, ni un autre entrepôt
+                if (grille[ligne][colonne].getMine() == null && grille[ligne][colonne].getEau() == null && grille[ligne][colonne].getEntrepot() == null) {
+                    Entrepot entrepotOr = new Entrepot(1, "OR", ligne, colonne);
+                    grille[ligne][colonne].setEntrepot(entrepotOr);
+                    entrepotOrPlace = true;
+                }
+            }
+
+            // Ajout de l'entrepôt de Nickel
+            boolean entrepotNiPlace = false;
+            while (!entrepotNiPlace) {
+                int ligne = rand.nextInt(10);
+                int colonne = rand.nextInt(10);
+
+                if (grille[ligne][colonne].getMine() == null && grille[ligne][colonne].getEau() == null && grille[ligne][colonne].getEntrepot() == null) {
+                    Entrepot entrepotNi = new Entrepot(2, "NI", ligne, colonne);
+                    grille[ligne][colonne].setEntrepot(entrepotNi);
+                    entrepotNiPlace = true;
+                }
+            }
     }
 
 
