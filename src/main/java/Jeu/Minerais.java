@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * 
  */
-public class Minerais {
+public abstract class Minerais {
 
     /**
      * Default constructor
