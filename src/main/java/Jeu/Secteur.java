@@ -84,6 +84,13 @@ public class Secteur {
         // TODO implement here
     }
 
-    public boolean getMine() {
+    public Mine getMine() {
+    }
+
+    public Entrepot getEntrepot(){
+
+    }
+
+    public Eau getEau(){
     }
 }

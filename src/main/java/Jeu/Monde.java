@@ -29,25 +29,49 @@ public class Monde {
         while (eauPlacee < 10){
             int ligne = rand.nextInt(10);
             int colonne = rand.nextInt(10);
-            if (grille[ligne][colonne] == null){
+            if (grille[ligne][colonne].getEau() == null){
                 grille[ligne][colonne] = new Secteur(new Eau());
                 eauPlacee++;
             }
         }
 
-        // Ajout de mine aléatoirement
+        // Ajout de mines aléatoirement
         int nbMinesNI = rand.nextInt(2) + 1; // 1 ou 2
         int nbMinesOR = rand.nextInt(2) + 1; // 1 ou 2
         int idMine = 1;
         int minesplacees = 0;
-        while (minesplacees < nbMinesNI){
+        int mineORsplacees = 0;
+        // Ajout de mines Nickel
+        while (minesplacees < nbMinesNI) {
             int ligne = rand.nextInt(10);
             int colonne = rand.nextInt(10);
-            if (!grille[ligne][colonne].getMine()){
+            // On vérifie qu'il n'y a pas déjà de mine
+            if (grille[ligne][colonne].getMine() == null && grille[ligne][colonne].getEau() == null && grille[ligne][colonne].getEntrepot() == null) {
+                // On calcule la capacité
+                int capacite = rand.nextInt(51) + 50;
+                // On crée et place la mine
                 Mine mine = new Mine(idMine, "NI", capacite, capacite);
                 grille[ligne][colonne].setMine(mine);
+                // On incrémente
+                minesplacees++;
+                idMine++;
             }
         }
+        // Ajout de mines OR
+        while (mineORsplacees < nbMinesOR) {
+            int ligne = rand.nextInt(10);
+            int colonne = rand.nextInt(10);
+            // On vérifie qu'il n'y a pas déjà de mine
+            if (grille[ligne][colonne].getMine() == null && grille[ligne][colonne].getEau() == null && grille[ligne][colonne].getEntrepot() == null) {
+                // On calcule la capacité
+                int capacite = rand.nextInt(51) + 50;
+                // On crée et place la mine
+                Mine mine = new Mine(idMine, "OR", capacite, capacite);
+                grille[ligne][colonne].setMine(mine);
+                // On incrémente
+                mineORsplacees++;
+                idMine++;
+            }
     }
 
 
