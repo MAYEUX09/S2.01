@@ -1,43 +1,37 @@
 package Jeu;
 
 public class Mine {
+    private int identifiant;
+    private String typeDeMinerai; // "NI" ou "OR"
+    private int capaciteMaximale;
+    private int quantiteRestante;
 
-    private int id;
-    private Minerais minerais;
-    private int capacite;
-    private int capaciteActuel;
-    private Secteur mine;
-
-    public Mine(int id, Minerais minerais, int capacite, int capaciteActuel, Secteur mine) {
-        this.id = id;
-        this.minerais = minerais;
-        this.capacite = capacite;
-        this.capaciteActuel = capaciteActuel;
-        this.mine = mine;
+    public Mine(int id, String type, int capMax, int capDepart) {
+        this.identifiant = id;
+        this.typeDeMinerai = type;
+        this.capaciteMaximale = capMax;
+        this.quantiteRestante = capDepart;
     }
 
-    public int extraire(int Quantité) {
-        int nbrMineraisExtrait;
-        nbrMineraisExtrait = 0;
-        if (capaciteActuel >= Quantité) {
-            capaciteActuel -= Quantité;
-            nbrMineraisExtrait += Quantité;
-        } else {
-            nbrMineraisExtrait = capaciteActuel;
-            capaciteActuel = 0;
-        }
-        return nbrMineraisExtrait;
+    public int extraire(int quantiteSouhaitee) {
+        int quantiteExtraiteReelle = Math.min(quantiteSouhaitee, this.quantiteRestante);
+        this.quantiteRestante -= quantiteExtraiteReelle;
+        return quantiteExtraiteReelle;
     }
 
-    public boolean estvide() {
-        if (capaciteActuel == 0) {
-            return true;
-        } else {
-            return false;
-        }
+    public int getId() {
+        return identifiant;
     }
 
-    public void setMine(Secteur mine) {
-        this.mine = mine;
+    public String getTypeMinerai() {
+        return typeDeMinerai;
+    }
+
+    public int getCapaciteActuel() {
+        return quantiteRestante;
+    }
+
+    public int getCapaciteMax() {
+        return capaciteMaximale;
     }
 }

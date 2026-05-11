@@ -1,23 +1,20 @@
 package Jeu;
 
-import java.util.*;
-
 public abstract class Minerais {
 
-    private int nbMinerais;
-    private String type;
+    private int nombreTotalMinerais;
+    private String nomDuType;
 
-
-    public Minerais(int nbr, String nom){
-    this.nbMinerais = nbr;
-    this.type = nom;
+    public Minerais(int quantiteInitiale, String nomLeType){
+        this.nombreTotalMinerais = quantiteInitiale;
+        this.nomDuType = nomLeType;
     }
 
     public int getNbMineraise(){
-        return this.nbMinerais;
+        return this.nombreTotalMinerais;
     }
 
     public String getType(){
-        return this.type;
+        return this.nomDuType;
     }
 }

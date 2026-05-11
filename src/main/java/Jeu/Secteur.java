@@ -1,98 +1,53 @@
 package Jeu;
 
-import java.util.ArrayList;
-
 public class Secteur {
-    private int ligne;
-    private int colonne;
-    private String Type;
-    private boolean libreRobot;
-    private boolean Libreelement;
-    private ArrayList<Robot> lesRobots;
+    private Terrain terrainDeBase;
+    private Eau elementEau;
+    private Mine gisementMine;
+    private Entrepot structureEntrepot;
+    private Robot robotOccupant; // Un seul robot par secteur à la fois
 
-    private Eau eau;
-    private Mine Mine;
-    private Terrain terrain;
-    private Entrepot entrepot;
-
-    public Secteur(Terrain terrain){
-        this.terrain = terrain;
-        this.eau = null;
-        this.Mine = null;
-        this.entrepot = null;
-        this.libreRobot = true;
+    public Secteur(Terrain terrain) {
+        this.terrainDeBase = terrain;
     }
 
-    public Secteur(Eau eau){
-        this.terrain = null;
-        this.eau = eau;
-        this.Mine = null;
-        this.entrepot = null;
-        this.libreRobot = false;
+    public Secteur(Eau eau) {
+        this.elementEau = eau;
     }
 
-    // Getters
-    public int getLigne() {
-        return ligne;
-    }
-
-    public int getColonne() {
-        return colonne;
-    }
-
-    public Terrain getTerrain() {
-        return terrain;
-    }
+    // --- GETTERS ---
 
     public Eau getEau() {
-        return eau;
+        return elementEau;
     }
 
     public Mine getMine() {
-        return Mine;
+        return gisementMine;
     }
 
     public Entrepot getEntrepot() {
-        return entrepot;
-    }
-
-    public boolean isLibreRobot() {
-        return libreRobot;
-    }
-
-    // Setters
-    public void setLigne(int ligne) {
-        this.ligne = ligne;
-    }
-
-    public void setColonne(int colonne) {
-        this.colonne = colonne;
-    }
-
-    public void setMine(Mine mine) {
-        this.Mine = mine;
-    }
-
-    public void setEntrepot(Entrepot entrepot) {
-        this.entrepot = entrepot;
-    }
-
-    public void setLibreRobot(boolean libreRobot) {
-        this.libreRobot = libreRobot;
-    }
-
-    public void setRobot(Robot robot) {
-        this.lesRobots.add(robot);
+        return structureEntrepot;
     }
 
     public Robot getRobot() {
-        return this.Robot;
+        return robotOccupant;
     }
 
+    public Terrain getTerrain() {
+        return terrainDeBase;
+    }
 
-    // Méthode
-    // Savoir si le secteur est libre :
-    public boolean estLibre() {
-        return libreRobot && eau == null;
+    // --- SETTERS ---
+
+    public void setMine(Mine mine) {
+        this.gisementMine = mine;
+    }
+
+    public void setEntrepot(Entrepot entrepot) {
+        this.structureEntrepot = entrepot;
+    }
+
+    public void setRobot(Robot robot) {
+        this.robotOccupant = robot;
     }
 }
