@@ -15,7 +15,7 @@ public class Entrepot {
     }
 
     public void Stocker(int Quantité) {
-        this.Quantité += capaciteActuel;
+        this.capaciteActuel += Quantité;
     }
 
 }
