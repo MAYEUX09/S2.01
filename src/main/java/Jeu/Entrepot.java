@@ -14,8 +14,8 @@ public class Entrepot {
         this.typeMinerais = typeMinerais;
     }
 
-    public void Stocker(int Quantité) {
-        this.Quantité += capaciteActuel;
+    public void Stocker(int Quantite) {
+        this.capaciteActuel += Quantite;
     }
 
 }
