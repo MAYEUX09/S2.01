@@ -7,18 +7,17 @@ public class Secteur {
     private boolean libreRobot;
     private boolean Libreelement;
     /**
-     public Robot Secteur;
-     public Entrepot Secteur = LesSecteurs;
-     public Mine Secteur;
-     public Monde[] lesSecteurs;
+     *
+     *  Je sais pas quoi faire de ça
+     *  public Robot Secteur;
+     *  public Entrepot Secteur = LesSecteurs;
+     *  public Mine Secteur;
+     *  public Monde[] lesSecteurs;
      */
     private Eau eau;
     private Mine Mine;
     private Terrain terrain;
     private Entrepot entrepot;
-
-
-
 
     /**
      * Default constructor
