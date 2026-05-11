@@ -1,14 +1,8 @@
 package Jeu;
 
-/**
- * 
- */
 public class Nickel extends Minerais {
 
-    /**
-     * Default constructor
-     */
-    public Nickel() {
+    public Nickel(int nbr) {
+        super(nbr,"NI");
     }
-
 }
