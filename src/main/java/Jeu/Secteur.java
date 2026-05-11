@@ -34,10 +34,10 @@ public class Secteur {
      * @param Librerobot  
      * @param libreelement
      */
-    public void estlibre(boolean Librerobot , bool libreelement ) {
+    public void estlibre(boolean Librerobot , boolean libreelement ) {
         // Code réalisé par Ounays, à vérifier SVP
-        if(Librerobot && Libreelement) {
-            return False
+        if(Librerobot == True && Libreelement == True) {
+            return True
         }
     }
 
