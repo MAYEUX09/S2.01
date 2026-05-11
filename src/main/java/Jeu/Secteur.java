@@ -7,6 +7,7 @@ public class Secteur {
     private boolean libreRobot;
     private boolean Libreelement;
     /**
+     * Je sais pas quoi faire de ça
      public Robot Secteur;
      public Entrepot Secteur = LesSecteurs;
      public Mine Secteur;
