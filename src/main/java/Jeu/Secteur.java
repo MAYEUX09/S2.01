@@ -2,57 +2,96 @@ package Jeu;
 
 public class Secteur {
     private int ligne;
-    private Mine Mine;
+    private int colonne;
     private String Type;
     private boolean libreRobot;
-    private int colonne;
     private boolean Libreelement;
+    /**
+     public Robot Secteur;
+     public Entrepot Secteur = LesSecteurs;
+     public Mine Secteur;
+     public Monde[] lesSecteurs;
+     */
     private Eau eau;
-    public Robot Secteur;
-    public Entrepot Secteur = LesSecteurs;
-    public Mine Secteur;
-    public Monde[] lesSecteurs;
-    public Eau Secteur;
-    public Terrain Secteur;
+    private Mine Mine;
+    private Terrain terrain;
+    private Entrepot entrepot;
+
+
+
 
     /**
      * Default constructor
      */
-    public Secteur(int ligne, Mine Mine, String Type, boolean libreRobot, int colonne, boolean Libreelement, Eau eau)
-    {
-        // Code réalisé par Ounays, à vérifier SVP
-        this.ligne = ligne;
-        this.Mine = Mine;
-        this.Type = Type;
-        this.libreRobot = libreRobot;
-        this.colonne = colonne;
-        this.Libreelement = Libreelement;
+    public Secteur(Terrain terrain){
+        this.terrain = terrain;
+        this.eau = null;
+        this.Mine = null;
+        this.entrepot = null;
+        this.libreRobot = true;
+    }
+
+    public Secteur(Eau eau){
+        this.terrain = null;
         this.eau = eau;
+        this.Mine = null;
+        this.entrepot = null;
+        this.libreRobot = false;
     }
 
-    /**
-     * @param Librerobot  
-     * @param libreelement
-     */
-    public void estlibre(boolean Librerobot , boolean libreelement ) {
-        // Code réalisé par Ounays, à vérifier SVP
-        if(Librerobot == True && Libreelement == True) {
-            return True
-        }
+    // Getters
+    public int getLigne() {
+        return ligne;
     }
 
-    public Mine getMine() {
-        // Code réalisé par Ounays, à vérifier SVP
-        return Mine;
+    public int getColonne() {
+        return colonne;
     }
 
-    public Entrepot getEntrepot() {
-        // Code réalisé par Ounays, à vérifier SVP
-        return Entrepot;
+    public Terrain getTerrain() {
+        return terrain;
     }
 
     public Eau getEau() {
-        // Code réalisé par Ounays, à vérifier SVP
         return eau;
+    }
+
+    public Mine getMine() {
+        return mine;
+    }
+
+    public Entrepot getEntrepot() {
+        return entrepot;
+    }
+
+    public boolean isLibreRobot() {
+        return libreRobot;
+    }
+
+    // Setters
+    public void setLigne(int ligne) {
+        this.ligne = ligne;
+    }
+
+    public void setColonne(int colonne) {
+        this.colonne = colonne;
+    }
+
+    public void setMine(Mine mine) {
+        this.mine = mine;
+    }
+
+    public void setEntrepot(Entrepot entrepot) {
+        this.entrepot = entrepot;
+    }
+
+    public void setLibreRobot(boolean libreRobot) {
+        this.libreRobot = libreRobot;
+    }
+
+    // Méthode
+    // Savoir si le secteur est libre :
+    public boolean estLibre() {
+        return libreRobot && eau == null;
     }
 }
