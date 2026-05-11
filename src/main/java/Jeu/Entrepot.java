@@ -1,39 +1,21 @@
 package Jeu;
 
-
 public class Entrepot {
 
-
     private int id;
-    private String minerais;
-    private int ligne;
-    private int colonne;
-    private int stock;
+    private int capaciteActuel;
+    private Secteur entrepot;
+    private Minerais typeMinerais;
 
-
-    public Entrepot(int id, String minerais, int ligne, int colonne) {
+    public Entrepot(int id, int capaciteActuel, Secteur entrepot, Minerais typeMinerais) {
         this.id = id;
-        this.minerais = minerais;
-        this.ligne = ligne;
-        this.colonne = colonne;
-        this.stock = 0;
+        this.capaciteActuel = capaciteActuel;
+        this.entrepot = entrepot;
+        this.typeMinerais = typeMinerais;
     }
 
-
-    public int getId(){ return id;}
-    public String getMinerais(){ return minerais; }
-    public int getLigne(){ return ligne; }
-    public int getColonne(){ return colonne; }
-    public int getStock(){ return stock; }
-
-    // Déposer des minerais
-    public void deposer(int quantite) {
-        this.stock += quantite;
+    public void Stocker(int Quantité) {
+        this.Quantité += capaciteActuel;
     }
 
-    @Override
-    public String toString() {
-        return "E" + id + " " + ligne + " " + colonne +
-                " " + minerais + " " + stock;
-    }
 }
