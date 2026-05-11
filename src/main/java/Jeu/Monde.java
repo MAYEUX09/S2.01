@@ -100,6 +100,51 @@ public class Monde {
                     entrepotNiPlace = true;
                 }
             }
+        // Ajout des robots de type Nickel (NI)
+        int nbRobotsNI = rand.nextInt(5) + 1; // Entre 1 et 5 robots
+        int robotsNiPlaces = 0;
+        int idRobot = 1; // On initialise l'ID unique
+
+        while (robotsNiPlaces < nbRobotsNI) {
+            int ligne = rand.nextInt(10);
+            int colonne = rand.nextInt(10);
+
+            if (grille[ligne][colonne].getEau() == null && grille[ligne][colonne].getRobot() == null) {
+                // Calcul des capacités aléatoires dictées par le sujet
+                int capStockage = rand.nextInt(5) + 5; // Entre 5 et 9
+                int capExtraction = rand.nextInt(3) + 1; // Entre 1 et 3
+
+                // Création et placement
+                Robot robot = new Robot(idRobot, "NI", capStockage, capExtraction, ligne, colonne);
+                grille[ligne][colonne].setRobot(robot);
+                lesRobots.add(robot); // On l'ajoute à l'inventaire du monde
+
+                robotsNiPlaces++;
+                idRobot++;
+            }
+        }
+        // Ajout des robots de type Or (OR)
+        int nbrobotor = rand.nextInt(5) + 1; // Entre 1 et 5 robots
+        int robotsORPlaces = 0;
+
+        while (robotsORPlaces < nbrobotor) {
+            int ligne = rand.nextInt(10);
+            int colonne = rand.nextInt(10);
+
+            if (grille[ligne][colonne].getEau() == null && grille[ligne][colonne].getRobot() == null) {
+                // Calcul des capacités aléatoires
+                int capStockage = rand.nextInt(5) + 5; // Entre 5 et 9
+                int capExtraction = rand.nextInt(3) + 1; // Entre 1 et 3
+
+                // Création et placement
+                Robot robot = new Robot(idRobot, "OR", capStockage, capExtraction, ligne, colonne);
+                grille[ligne][colonne].setRobot(robot);
+                lesRobots.add(robot);
+
+                robotsORPlaces++;
+                idRobot++;
+            }
+        }
     }
 
 
