@@ -1,27 +1,20 @@
 package Jeu;
 
+import java.util.ArrayList;
+
 public class Secteur {
     private int ligne;
     private int colonne;
     private String Type;
     private boolean libreRobot;
     private boolean Libreelement;
-    /**
-     *
-     *  Je sais pas quoi faire de ça
-     *  public Robot Secteur;
-     *  public Entrepot Secteur = LesSecteurs;
-     *  public Mine Secteur;
-     *  public Monde[] lesSecteurs;
-     */
+    private ArrayList<Robot> lesRobots;
+
     private Eau eau;
     private Mine Mine;
     private Terrain terrain;
     private Entrepot entrepot;
 
-    /**
-     * Default constructor
-     */
     public Secteur(Terrain terrain){
         this.terrain = terrain;
         this.eau = null;
@@ -56,7 +49,7 @@ public class Secteur {
     }
 
     public Mine getMine() {
-        return mine;
+        return Mine;
     }
 
     public Entrepot getEntrepot() {
@@ -77,7 +70,7 @@ public class Secteur {
     }
 
     public void setMine(Mine mine) {
-        this.mine = mine;
+        this.Mine = mine;
     }
 
     public void setEntrepot(Entrepot entrepot) {
@@ -89,11 +82,11 @@ public class Secteur {
     }
 
     public void setRobot(Robot robot) {
-        this.robot = robot;
+        this.lesRobots.add(robot);
     }
 
     public Robot getRobot() {
-        return this.robot;
+        return this.Robot;
     }
 
 
