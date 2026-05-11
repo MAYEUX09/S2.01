@@ -89,6 +89,15 @@ public class Secteur {
         this.libreRobot = libreRobot;
     }
 
+    public void setRobot(Robot robot) {
+        this.robot = robot;
+    }
+
+    public Robot getRobot() {
+        return this.robot;
+    }
+
+
     // Méthode
     // Savoir si le secteur est libre :
     public boolean estLibre() {
