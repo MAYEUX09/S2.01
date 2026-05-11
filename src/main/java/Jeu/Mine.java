@@ -23,7 +23,8 @@ public class Mine {
             capaciteActuel -= Quantité;
             nbrMineraisExtrait += Quantité;
         } else {
-            nbrMineraisExtrait = capaciteActuel - Quantité;
+            nbrMineraisExtrait = capaciteActuel;
+            capaciteActuel = 0;
         }
         return nbrMineraisExtrait;
     }

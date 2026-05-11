@@ -100,6 +100,18 @@ public class Monde {
                     entrepotNiPlace = true;
                 }
             }
+            int nbRobotsNI = rand.nextInt(5) + 1;
+            int robotsNiPlaces = 0;
+            while (robotsNiPlaces < nbRobotsNI){
+                int ligne = rand.nextInt(10);
+                int colonne = rand.nextInt(10);
+                if (grille[ligne][colonne].getEau() == null && grille[ligne][colonne].getRobot() == null){
+                    Robot robot = new Robot();
+                    grille[ligne][colonne].setRobot(robot);
+                    robotsNiPlaces++;
+                }
+            }
+
     }
 
 
