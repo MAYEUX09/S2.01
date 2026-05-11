@@ -1,70 +1,38 @@
 package Jeu;
 
-/**
- * 
- */
 public class Mine {
 
-    /**
-     * Default constructor
-     */
-    public Mine() {
-    }
-
-    /**
-     * 
-     */
     private int id;
-
-    /**
-     * 
-     */
-    private Minerais Minerais;
-
-    /**
-     * 
-     */
+    private Minerais minerais;
     private int capacite;
+    private int capaciteActuel;
+    private Secteur mine;
 
-    /**
-     * 
-     */
-    private int capaciteactuel;
+    public Mine(int id, Minerais minerais, int capacite, int capaciteActuel, Secteur mine) {
+        this.id = id;
+        this.minerais = minerais;
+        this.capacite = capacite;
+        this.capaciteActuel = capaciteActuel;
+        this.mine = mine;
+    }
 
-
-    /**
-     * 
-     */
-    public Secteur Mine;
-
-
-    /**
-     * 
-     */
-    public Minerais Mine;
-
-    /**
-     * @param Quantité 
-     * @return
-     */
     public int extraire(int Quantité) {
-        // TODO implement here
-        return 0;
+        int nbrMineraisExtrait;
+        nbrMineraisExtrait = 0;
+        if (capaciteActuel >= Quantité) {
+            capaciteActuel -= Quantité;
+            nbrMineraisExtrait += Quantité;
+        } else {
+            nbrMineraisExtrait = capaciteActuel - Quantité;
+        }
+        return nbrMineraisExtrait;
     }
 
-    /**
-     * 
-     */
-    public void Operation1() {
-        // TODO implement here
-    }
-
-    /**
-     * @return
-     */
     public boolean estvide() {
-        // TODO implement here
-        return false;
+        if (capaciteActuel == 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
-
 }
