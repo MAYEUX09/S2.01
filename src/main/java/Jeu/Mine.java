@@ -23,7 +23,8 @@ public class Mine {
             capaciteActuel -= Quantité;
             nbrMineraisExtrait += Quantité;
         } else {
-            nbrMineraisExtrait = capaciteActuel - Quantité;
+            nbrMineraisExtrait = capaciteActuel;
+            capaciteActuel = 0;
         }
         return nbrMineraisExtrait;
     }
@@ -34,5 +35,9 @@ public class Mine {
         } else {
             return false;
         }
+    }
+
+    public void setMine(Secteur mine) {
+        this.mine = mine;
     }
 }

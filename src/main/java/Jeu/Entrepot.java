@@ -15,7 +15,11 @@ public class Entrepot {
     }
 
     public void Stocker(int Quantité) {
-        this.Quantité += capaciteActuel;
+        this.capaciteActuel += Quantité;
+    }
+
+    public void setEntrepot(Secteur entrepot) {
+        this.entrepot = entrepot;
     }
 
 }
