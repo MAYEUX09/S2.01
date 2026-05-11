@@ -48,7 +48,7 @@ public class Secteur {
 
     public Entrepot getEntrepot() {
         // Code réalisé par Ounays, à vérifier SVP
-        return Entrepot
+        return Entrepot;
     }
 
     public Eau getEau() {
