@@ -2,42 +2,22 @@ package Jeu;
 
 import java.util.*;
 
-/**
- * 
- */
 public abstract class Minerais {
 
-    /**
-     * Default constructor
-     */
-    public Minerais() {
+    private int nbMinerais;
+    private String type;
+
+
+    public Minerais(int nbr, String nom){
+    this.nbMinerais = nbr;
+    this.type = nom;
     }
 
-    /**
-     * 
-     */
-    private int nbMinerais;
+    public int getNbMineraise(){
+        return this.nbMinerais;
+    }
 
-    /**
-     * 
-     */
-    private String Type;
-
-    /**
-     * 
-     */
-    public Robot Minerais;
-
-
-
-    /**
-     * 
-     */
-    public Mine LesMinerais;
-
-    /**
-     * 
-     */
-    public Set<Entrepot> LesMinerais;
-
+    public String getType(){
+        return this.type;
+    }
 }

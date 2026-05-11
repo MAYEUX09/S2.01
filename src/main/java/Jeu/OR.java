@@ -1,14 +1,9 @@
 package Jeu;
 
-/**
- * 
- */
 public class OR extends Minerais {
 
-    /**
-     * Default constructor
-     */
-    public OR() {
+    public OR(int nbr) {
+        super(nbr, "OR");
     }
 
 }
