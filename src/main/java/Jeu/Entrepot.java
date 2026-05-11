@@ -18,4 +18,8 @@ public class Entrepot {
         this.capaciteActuel += Quantité;
     }
 
+    public void setEntrepot(Secteur entrepot) {
+        this.entrepot = entrepot;
+    }
+
 }

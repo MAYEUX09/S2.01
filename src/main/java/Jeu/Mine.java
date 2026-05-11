@@ -36,4 +36,8 @@ public class Mine {
             return false;
         }
     }
+
+    public void setMine(Secteur mine) {
+        this.mine = mine;
+    }
 }
