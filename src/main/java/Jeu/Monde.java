@@ -35,10 +35,11 @@ public class Monde {
 
             int nombreMinesAVolonte = generateurAlea.nextInt(2) + 1;
             for (int minesPlacees = 0; minesPlacees < nombreMinesAVolonte; ) {
+                int capaciteMines = generateurAlea.nextInt(50, 100);
                 int ligneAlea = generateurAlea.nextInt(10);
                 int colonneAlea = generateurAlea.nextInt(10);
                 if (grille[ligneAlea][colonneAlea].getEau() == null && grille[ligneAlea][colonneAlea].getMine() == null) {
-                    grille[ligneAlea][colonneAlea].setMine(new Mine(minesPlacees, typeActuel, 100, 100));
+                    grille[ligneAlea][colonneAlea].setMine(new Mine(minesPlacees, typeActuel, capaciteMines, capaciteMines));
                     minesPlacees++;
                 }
             }
