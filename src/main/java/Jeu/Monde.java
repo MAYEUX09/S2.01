@@ -21,7 +21,8 @@ public class Monde {
             }
         }
 
-        for (int eauPlacee = 0; eauPlacee < 10; ) {
+        int nbeau = generateurAlea.nextInt(11); // deux lignes
+        for (int eauPlacee = 0; eauPlacee < nbeau; ) {
             int ligneAlea = generateurAlea.nextInt(10);
             int colonneAlea = generateurAlea.nextInt(10);
             if (grille[ligneAlea][colonneAlea].getEau() == null) {
