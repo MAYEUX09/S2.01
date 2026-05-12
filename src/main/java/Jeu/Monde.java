@@ -4,23 +4,23 @@ import java.util.*;
 public class Monde {
     private Secteur[][] grille;
     private ArrayList<Robot> lesRobots;
+    private int numeroTour;
 
     public Monde() {
         this.grille = new Secteur[10][10];
         this.lesRobots = new ArrayList<>();
+        this.numeroTour = 1;
     }
 
     public void initialisation() {
         Random generateurAlea = new Random();
 
-        // 1. Remplir de terrain
         for (int ligne = 0; ligne < 10; ligne++) {
             for (int colonne = 0; colonne < 10; colonne++) {
                 grille[ligne][colonne] = new Secteur(new Terrain(ligne * 10 + colonne));
             }
         }
 
-        // 2. Eau (10 cases)
         for (int eauPlacee = 0; eauPlacee < 10; ) {
             int ligneAlea = generateurAlea.nextInt(10);
             int colonneAlea = generateurAlea.nextInt(10);
@@ -30,11 +30,9 @@ public class Monde {
             }
         }
 
-        // 3. Mines & Entrepôts (Or et Nickel)
         String[] typesMinerais = {"NI", "OR"};
         for (String typeActuel : typesMinerais) {
 
-            // Mines
             int nombreMinesAVolonte = generateurAlea.nextInt(2) + 1;
             for (int minesPlacees = 0; minesPlacees < nombreMinesAVolonte; ) {
                 int ligneAlea = generateurAlea.nextInt(10);
@@ -45,7 +43,6 @@ public class Monde {
                 }
             }
 
-            // Entrepôts
             boolean entrepotPlace = false;
             while (!entrepotPlace) {
                 int ligneAlea = generateurAlea.nextInt(10);
@@ -57,7 +54,6 @@ public class Monde {
             }
         }
 
-        // 4. Robots
         for (String typeActuel : typesMinerais) {
             int nombreRobots = generateurAlea.nextInt(5) + 1;
             for (int robotsPlaces = 0; robotsPlaces < nombreRobots; ) {
@@ -112,6 +108,8 @@ public class Monde {
                 }
             }
         }
+
+        numeroTour++;
     }
 
     public void affichermonde() {
@@ -170,7 +168,7 @@ public class Monde {
             System.out.println("+");
         }
 
-        System.out.println("\nTour 1");
+        System.out.println("\nTour " + numeroTour);
 
         for (int indexMine = 0; indexMine < recapMines.size(); indexMine++) {
             Mine mineActuelle = recapMines.get(indexMine);
