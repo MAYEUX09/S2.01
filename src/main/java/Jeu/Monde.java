@@ -25,7 +25,7 @@ public class Monde {
 // Génération de l'eau
 // ===============================================
 
-        int nbeau = generateurAlea.nextInt(11); // deux lignes
+        int nbeau = generateurAlea.nextInt(11);
         for (int eauPlacee = 0; eauPlacee < nbeau; ) {
             int ligneAlea = generateurAlea.nextInt(10);
             int colonneAlea = generateurAlea.nextInt(10);

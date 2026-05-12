@@ -15,6 +15,10 @@ public class Entrepot {
         this.quantiteStockeeActuelle += quantiteAAjouter;
     }
 
+// ===============================================
+// Getters
+// ===============================================
+
     public int getId() {
         return identifiant;
     }
