@@ -31,15 +31,27 @@ public class Monde {
         }
 
         String[] typesMinerais = {"NI", "OR"};
-        for (String typeActuel : typesMinerais) {
+        int idMine = 0;
+        int idEntrepot = 1;
 
+
+        for (String typeActuel : typesMinerais) {
             int nombreMinesAVolonte = generateurAlea.nextInt(2) + 1;
+
             for (int minesPlacees = 0; minesPlacees < nombreMinesAVolonte; ) {
                 int capaciteMines = generateurAlea.nextInt(50, 100);
                 int ligneAlea = generateurAlea.nextInt(10);
                 int colonneAlea = generateurAlea.nextInt(10);
-                if (grille[ligneAlea][colonneAlea].getEau() == null && grille[ligneAlea][colonneAlea].getMine() == null) {
-                    grille[ligneAlea][colonneAlea].setMine(new Mine(minesPlacees, typeActuel, capaciteMines, capaciteMines));
+
+                if (grille[ligneAlea][colonneAlea].getEau() == null
+                        && grille[ligneAlea][colonneAlea].getMine() == null
+                        && grille[ligneAlea][colonneAlea].getEntrepot() == null) {
+
+                    grille[ligneAlea][colonneAlea].setMine(
+                            new Mine(idMine, typeActuel, capaciteMines, capaciteMines)
+                    );
+
+                    idMine++;
                     minesPlacees++;
                 }
             }
@@ -48,10 +60,12 @@ public class Monde {
             while (!entrepotPlace) {
                 int ligneAlea = generateurAlea.nextInt(10);
                 int colonneAlea = generateurAlea.nextInt(10);
-                if (grille[ligneAlea][colonneAlea].getEau() == null && grille[ligneAlea][colonneAlea].getEntrepot() == null) {
-                    grille[ligneAlea][colonneAlea].setEntrepot(new Entrepot(1, typeActuel, ligneAlea, colonneAlea));
+                if (grille[ligneAlea][colonneAlea].getEau() == null && grille[ligneAlea][colonneAlea].getEntrepot() == null && grille[ligneAlea][colonneAlea].getMine() == null) {
+                    grille[ligneAlea][colonneAlea].setEntrepot(new Entrepot(idEntrepot, typeActuel, ligneAlea, colonneAlea));
                     entrepotPlace = true;
+                    idEntrepot++ ;
                 }
+
             }
         }
 
