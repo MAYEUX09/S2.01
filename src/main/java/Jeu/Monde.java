@@ -170,7 +170,7 @@ public class Monde {
             System.out.println("+");
         }
 
-        System.out.println("\nTour 75");
+        System.out.println("\nTour 1");
 
         for (int indexMine = 0; indexMine < recapMines.size(); indexMine++) {
             Mine mineActuelle = recapMines.get(indexMine);
