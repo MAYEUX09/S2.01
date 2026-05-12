@@ -21,6 +21,10 @@ public class Monde {
             }
         }
 
+// ===============================================
+// Génération de l'eau
+// ===============================================
+
         for (int eauPlacee = 0; eauPlacee < 10; ) {
             int ligneAlea = generateurAlea.nextInt(10);
             int colonneAlea = generateurAlea.nextInt(10);
@@ -30,10 +34,13 @@ public class Monde {
             }
         }
 
+// ===============================================
+// Génération des mines
+// ===============================================
+
         String[] typesMinerais = {"NI", "OR"};
         int idMine = 0;
         int idEntrepot = 1;
-
 
         for (String typeActuel : typesMinerais) {
             int nombreMinesAVolonte = generateurAlea.nextInt(2) + 1;
@@ -56,6 +63,10 @@ public class Monde {
                 }
             }
 
+// ===============================================
+// Génération des entrepôts
+// ===============================================
+
             boolean entrepotPlace = false;
             while (!entrepotPlace) {
                 int ligneAlea = generateurAlea.nextInt(10);
@@ -69,25 +80,83 @@ public class Monde {
             }
         }
 
-        for (String typeActuel : typesMinerais) {
-            int nombreRobots = generateurAlea.nextInt(5) + 1;
-            for (int robotsPlaces = 0; robotsPlaces < nombreRobots; ) {
+// ===============================================
+//  Génération des robots
+// ===============================================
+
+        int totalRobots = generateurAlea.nextInt(4) + 2; // entre 2 et 5
+        int idRobot = 1;
+
+        boolean robotOrPlace = false;
+        while (!robotOrPlace) {
+            int ligneAlea = generateurAlea.nextInt(10);
+            int colonneAlea = generateurAlea.nextInt(10);
+
+            if (grille[ligneAlea][colonneAlea].getEau() == null
+                    && grille[ligneAlea][colonneAlea].getRobot() == null) {
+
+                int capaciteStockage = generateurAlea.nextInt(5) + 5;
+                int capaciteExtraction = generateurAlea.nextInt(3) + 1;
+
+                Robot nouveauRobot = new Robot(idRobot, "OR", capaciteStockage, capaciteExtraction, ligneAlea, colonneAlea);
+                grille[ligneAlea][colonneAlea].setRobot(nouveauRobot);
+                lesRobots.add(nouveauRobot);
+
+                idRobot++;
+                robotOrPlace = true;
+            }
+        }
+
+// 1 robot NI obligatoire
+        boolean robotNiPlace = false;
+        while (!robotNiPlace) {
+            int ligneAlea = generateurAlea.nextInt(10);
+            int colonneAlea = generateurAlea.nextInt(10);
+
+            if (grille[ligneAlea][colonneAlea].getEau() == null
+                    && grille[ligneAlea][colonneAlea].getRobot() == null) {
+
+                int capaciteStockage = generateurAlea.nextInt(5) + 5;
+                int capaciteExtraction = generateurAlea.nextInt(3) + 1;
+
+                Robot nouveauRobot = new Robot(idRobot, "NI", capaciteStockage, capaciteExtraction, ligneAlea, colonneAlea);
+                grille[ligneAlea][colonneAlea].setRobot(nouveauRobot);
+                lesRobots.add(nouveauRobot);
+
+                idRobot++;
+                robotNiPlace = true;
+            }
+        }
+
+// Robots restants
+        for (int robotsPlaces = 2; robotsPlaces < totalRobots; robotsPlaces++) {
+            boolean robotPlace = false;
+
+            while (!robotPlace) {
                 int ligneAlea = generateurAlea.nextInt(10);
                 int colonneAlea = generateurAlea.nextInt(10);
-                if (grille[ligneAlea][colonneAlea].getEau() == null && grille[ligneAlea][colonneAlea].getRobot() == null) {
-                    int idRobot = lesRobots.size() + 1;
+
+                if (grille[ligneAlea][colonneAlea].getEau() == null
+                        && grille[ligneAlea][colonneAlea].getRobot() == null) {
+
                     int capaciteStockage = generateurAlea.nextInt(5) + 5;
                     int capaciteExtraction = generateurAlea.nextInt(3) + 1;
+                    String typeRobot = typesMinerais[generateurAlea.nextInt(2)];
 
-                    Robot nouveauRobot = new Robot(idRobot, typeActuel, capaciteStockage, capaciteExtraction, ligneAlea, colonneAlea);
+                    Robot nouveauRobot = new Robot(idRobot, typeRobot, capaciteStockage, capaciteExtraction, ligneAlea, colonneAlea);
                     grille[ligneAlea][colonneAlea].setRobot(nouveauRobot);
                     lesRobots.add(nouveauRobot);
-                    robotsPlaces++;
+
+                    idRobot++;
+                    robotPlace = true;
                 }
             }
         }
-    }
+        }
 
+// ===============================================
+//  Génération des robots
+// ===============================================
     public void tour() {
         Scanner clavier = new Scanner(System.in);
 
