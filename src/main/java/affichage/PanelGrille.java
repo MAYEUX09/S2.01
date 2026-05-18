@@ -5,10 +5,18 @@ import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
 
+/**
+ * Panneau d'affichage de la grille du monde.
+ * Chaque secteur est représenté visuellement avec une petite matrice.
+ */
 public class PanelGrille extends JPanel {
 
     private Monde monde;
 
+    /**
+     * Constructeur du panneau de grille.
+     * @param monde monde à afficher
+     */
     public PanelGrille(Monde monde) {
         this.monde = monde;
 
@@ -22,6 +30,9 @@ public class PanelGrille extends JPanel {
         rafraichir();
     }
 
+    /**
+     * Met à jour l'affichage de la grille.
+     */
     public void rafraichir() {
         removeAll();
 
@@ -81,6 +92,10 @@ public class PanelGrille extends JPanel {
         repaint();
     }
 
+    /**
+     * Applique un style commun à toutes les cellules de la grille.
+     * @param label label à styliser
+     */
     private void styliserLabel(JLabel label) {
         label.setOpaque(true);
         label.setFont(new Font("Arial", Font.BOLD, 14));

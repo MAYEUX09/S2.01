@@ -5,6 +5,14 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+/**
+ * Fenêtre principale du jeu en mode graphique.
+ * Elle contient :
+ * - un bandeau supérieur avec le titre et le numéro du tour,
+ * - la grille du monde,
+ * - le panneau d'informations,
+ * - le panneau de commandes.
+ */
 public class fenetredejeu2 extends JFrame {
 
     private Monde monde;
@@ -14,6 +22,10 @@ public class fenetredejeu2 extends JFrame {
     private JLabel labelTitre;
     private JLabel labelTour;
 
+    /**
+     * Constructeur de la fenêtre graphique.
+     * @param monde instance du monde à afficher et à manipuler
+     */
     public fenetredejeu2(Monde monde) {
         this.monde = monde;
 
@@ -22,15 +34,20 @@ public class fenetredejeu2 extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        // Panneau principal de la fenêtre
         JPanel panneauPrincipal = new JPanel(new BorderLayout(10, 10));
         panneauPrincipal.setBorder(new EmptyBorder(10, 10, 10, 10));
         panneauPrincipal.setBackground(new Color(230, 230, 230));
 
+        // Bandeau du haut
         JPanel panneauHaut = creerPanneauHaut();
+
+        // Composants de la fenêtre
         panelGrille = new PanelGrille(monde);
         panelInfos = new PanelInfos(monde);
         panelCommandes = new PanelCommandes(monde, this);
 
+        // Conteneur central pour mettre la grille et les infos côte à côte
         JPanel conteneurCentre = new JPanel(new BorderLayout(10, 10));
         conteneurCentre.setOpaque(false);
         conteneurCentre.add(panelGrille, BorderLayout.CENTER);
@@ -43,6 +60,10 @@ public class fenetredejeu2 extends JFrame {
         setContentPane(panneauPrincipal);
     }
 
+    /**
+     * Crée le panneau supérieur contenant le titre et le tour actuel.
+     * @return le panneau du haut
+     */
     private JPanel creerPanneauHaut() {
         JPanel panneauHaut = new JPanel(new BorderLayout());
         panneauHaut.setBackground(new Color(60, 63, 65));
@@ -62,6 +83,9 @@ public class fenetredejeu2 extends JFrame {
         return panneauHaut;
     }
 
+    /**
+     * Rafraîchit l'affichage de la fenêtre après une action.
+     */
     public void rafraichir() {
         labelTour.setText("Tour : " + monde.getNumeroTour());
         panelGrille.rafraichir();
