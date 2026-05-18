@@ -15,9 +15,7 @@ public class Secteur {
         this.elementEau = eau;
     }
 
-// ===============================================
-// Getters
-// ===============================================
+
 
     public Eau getEau() {
         return elementEau;
@@ -39,9 +37,6 @@ public class Secteur {
         return terrainDeBase;
     }
 
-// ===============================================
-// Setters
-// ===============================================
 
     public void setMine(Mine mine) {
         this.gisementMine = mine;

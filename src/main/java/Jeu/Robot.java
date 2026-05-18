@@ -55,9 +55,6 @@ public class Robot {
         return 0;
     }
 
-// ===============================================
-// Getters
-// ===============================================
     public int getId() {
         return identifiant;
     }

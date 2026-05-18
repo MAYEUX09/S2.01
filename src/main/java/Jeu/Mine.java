@@ -19,9 +19,6 @@ public class Mine {
         return quantiteExtraiteReelle;
     }
 
-// ===============================================
-// Getters
-// ===============================================
     public int getId() {
         return identifiant;
     }
