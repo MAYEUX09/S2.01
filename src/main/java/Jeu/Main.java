@@ -1,7 +1,7 @@
 package Jeu;
 
-import affichage.Fenetrejeu; // Indispensable pour trouver ta fenêtre
-import java.util.Scanner;    // Indispensable pour lire le choix du joueur
+import affichage.Fenetrejeu;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
