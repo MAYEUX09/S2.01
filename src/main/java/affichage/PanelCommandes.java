@@ -90,7 +90,7 @@ public class PanelCommandes extends JPanel {
         if (robot == null) return;
 
         Mine mine = monde.getGrille()[robot.getLigne()][robot.getColonne()].getMine();
-        int quantite = robot.récolter(mine);
+        int quantite = robot.recolter(mine);
 
         if (quantite > 0) {
             JOptionPane.showMessageDialog(this, "Récolte de " + quantite + " minerai(x).");
@@ -106,7 +106,7 @@ public class PanelCommandes extends JPanel {
         if (robot == null) return;
 
         Entrepot entrepot = monde.getGrille()[robot.getLigne()][robot.getColonne()].getEntrepot();
-        int quantite = robot.déposer(entrepot);
+        int quantite = robot.deposer(entrepot);
 
         if (quantite > 0) {
             JOptionPane.showMessageDialog(this, "Dépôt de " + quantite + " minerai(x).");

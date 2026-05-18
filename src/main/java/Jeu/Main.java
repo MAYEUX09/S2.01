@@ -1,6 +1,7 @@
 package Jeu;
 
-import affichage.Fenetrejeu;
+import affichage.fenetredejeu2;
+import javax.swing.SwingUtilities;
 import java.util.Scanner;
 
 public class Main {
@@ -9,9 +10,7 @@ public class Main {
         m.initialisation();
 
         Scanner scanner = new Scanner(System.in);
-
-
-        System.out.println("Bienvenue dans la simulation minanière !");
+        System.out.println("Bienvenue dans la simulation minière !");
         System.out.println("Choisissez votre mode d'affichage :");
         System.out.println("1 - Mode Console (Texte)");
         System.out.println("2 - Mode Graphique (Fenêtre 2D)");
@@ -26,8 +25,10 @@ public class Main {
             }
         } else if (choix == 2) {
             System.out.println("Lancement du mode graphique...");
-            Fenetrejeu maFenetre = new Fenetrejeu(m);
-            maFenetre.setVisible(true);
+            SwingUtilities.invokeLater(() -> {
+                fenetredejeu2 fenetre = new fenetredejeu2(m);
+                fenetre.setVisible(true);
+            });
         } else {
             System.out.println("Choix invalide. Fin du programme.");
         }
