@@ -57,7 +57,7 @@ public class MondeTest {
 
     @Test
     void testRecolteBonneMine() {
-        int recolte = robotOR.récolter(mineOR);
+        int recolte = robotOR.recolter(mineOR);
 
         assertEquals(3, recolte);
         assertEquals(3, robotOR.getStockActuel());
@@ -66,7 +66,7 @@ public class MondeTest {
 
     @Test
     void testRecolteMauvaisTypeMine() {
-        int recolte = robotOR.récolter(mineNI);
+        int recolte = robotOR.recolter(mineNI);
 
         assertEquals(0, recolte);
         assertEquals(0, robotOR.getStockActuel());
@@ -75,9 +75,9 @@ public class MondeTest {
 
     @Test
     void testRecolteJusquaCapaciteMaxRobot() {
-        int recolte1 = robotOR.récolter(mineOR);
-        int recolte2 = robotOR.récolter(mineOR);
-        int recolte3 = robotOR.récolter(mineOR);
+        int recolte1 = robotOR.recolter(mineOR);
+        int recolte2 = robotOR.recolter(mineOR);
+        int recolte3 = robotOR.recolter(mineOR);
 
         assertEquals(3, recolte1);
         assertEquals(3, recolte2);
@@ -88,8 +88,8 @@ public class MondeTest {
 
     @Test
     void testDeposerDansBonEntrepot() {
-        robotOR.récolter(mineOR);
-        int quantiteDeposee = robotOR.déposer(entrepotOR);
+        robotOR.recolter(mineOR);
+        int quantiteDeposee = robotOR.deposer(entrepotOR);
 
         assertEquals(3, quantiteDeposee);
         assertEquals(0, robotOR.getStockActuel());
@@ -98,8 +98,8 @@ public class MondeTest {
 
     @Test
     void testDeposerDansMauvaisEntrepot() {
-        robotOR.récolter(mineOR);
-        int quantiteDeposee = robotOR.déposer(entrepotNI);
+        robotOR.recolter(mineOR);
+        int quantiteDeposee = robotOR.deposer(entrepotNI);
 
         assertEquals(0, quantiteDeposee);
         assertEquals(3, robotOR.getStockActuel());
@@ -108,7 +108,7 @@ public class MondeTest {
 
     @Test
     void testDeposerSacVide() {
-        int quantiteDeposee = robotOR.déposer(entrepotOR);
+        int quantiteDeposee = robotOR.deposer(entrepotOR);
 
         assertEquals(0, quantiteDeposee);
         assertEquals(0, robotOR.getStockActuel());
