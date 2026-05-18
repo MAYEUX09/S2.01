@@ -21,10 +21,6 @@ public class Monde {
             }
         }
 
-// ===============================================
-// Génération de l'eau
-// ===============================================
-
         int nbeau = generateurAlea.nextInt(11);
         for (int eauPlacee = 0; eauPlacee < nbeau; ) {
             int ligneAlea = generateurAlea.nextInt(10);
@@ -34,10 +30,6 @@ public class Monde {
                 eauPlacee++;
             }
         }
-
-// ===============================================
-// Génération des mines
-// ===============================================
 
         String[] typesMinerais = {"NI", "OR"};
         int idMine = 0;
@@ -64,10 +56,6 @@ public class Monde {
                 }
             }
 
-// ===============================================
-// Génération des entrepôts
-// ===============================================
-
             boolean entrepotPlace = false;
             while (!entrepotPlace) {
                 int ligneAlea = generateurAlea.nextInt(10);
@@ -80,10 +68,6 @@ public class Monde {
 
             }
         }
-
-// ===============================================
-//  Génération des robots
-// ===============================================
 
         int totalRobots = generateurAlea.nextInt(4) + 2; // entre 2 et 5
         int idRobot = 1;
@@ -108,7 +92,7 @@ public class Monde {
             }
         }
 
-// 1 robot NI obligatoire
+
         boolean robotNiPlace = false;
         while (!robotNiPlace) {
             int ligneAlea = generateurAlea.nextInt(10);
@@ -129,7 +113,6 @@ public class Monde {
             }
         }
 
-// Robots restants
         for (int robotsPlaces = 2; robotsPlaces < totalRobots; robotsPlaces++) {
             boolean robotPlace = false;
 
@@ -155,9 +138,7 @@ public class Monde {
         }
         }
 
-// ===============================================
-//  Génération des robots
-// ===============================================
+
     public void tour() {
         Scanner clavier = new Scanner(System.in);
 
