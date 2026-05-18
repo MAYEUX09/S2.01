@@ -21,7 +21,6 @@ public class Main {
 
         if (choix == 1) {
             System.out.println("Lancement du mode console...");
-            // Ton ancien code console
             while (true) {
                 m.tour();
             }
