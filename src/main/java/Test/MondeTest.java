@@ -40,4 +40,9 @@ public class MondeTest {
     }
 }
 
+
+
+
+// Partie 2
+
 }
