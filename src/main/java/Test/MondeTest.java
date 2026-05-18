@@ -72,60 +72,60 @@ public class MondeTest {
 
         @Test
         void testRecolterNormal() {
-            assertEquals(3, robotOR.récolter(mineOR));
+            assertEquals(3, robotOR.recolter(mineOR));
             assertEquals(3, robotOR.getStockActuel());
         }
 
         @Test
         void testRecolterMauvaisType() {
-            assertEquals(0, robotOR.récolter(mineNI));
+            assertEquals(0, robotOR.recolter(mineNI));
             assertEquals(0, robotOR.getStockActuel());
         }
 
         @Test
         void testRecolterSacPlein() {
-            robotOR.récolter(mineOR); // stock = 3
-            robotOR.récolter(mineOR); // stock = 6
-            robotOR.récolter(mineOR); // stock = 7 (sac plein)
-            assertEquals(0, robotOR.récolter(mineOR));
+            robotOR.recolter(mineOR); // stock = 3
+            robotOR.recolter(mineOR); // stock = 6
+            robotOR.recolter(mineOR); // stock = 7 (sac plein)
+            assertEquals(0, robotOR.recolter(mineOR));
         }
 
         @Test
         void testRecolterMinePresqueVide() {
             Mine minePetite = new Mine(3, "OR", 50, 1);
-            assertEquals(1, robotOR.récolter(minePetite));
+            assertEquals(1, robotOR.recolter(minePetite));
         }
 
         @Test
         void testRecolterMineNull() {
-            assertEquals(0, robotOR.récolter(null));
+            assertEquals(0, robotOR.recolter(null));
         }
 
 
         @Test
         void testDeposerNormal() {
-            robotOR.récolter(mineOR); // stock = 3
-            assertEquals(3, robotOR.déposer(entrepotOR));
+            robotOR.recolter(mineOR); // stock = 3
+            assertEquals(3, robotOR.deposer(entrepotOR));
             assertEquals(0, robotOR.getStockActuel());
             assertEquals(3, entrepotOR.getStockActuel());
         }
 
         @Test
         void testDeposerMauvaisType() {
-            robotOR.récolter(mineOR); // stock = 3
-            assertEquals(0, robotOR.déposer(entrepotNI));
+            robotOR.recolter(mineOR); // stock = 3
+            assertEquals(0, robotOR.deposer(entrepotNI));
             assertEquals(3, robotOR.getStockActuel());
         }
 
         @Test
         void testDeposerRobotVide() {
-            assertEquals(0, robotOR.déposer(entrepotOR));
+            assertEquals(0, robotOR.deposer(entrepotOR));
         }
 
         @Test
         void testDeposerEntrepotNull() {
-            robotOR.récolter(mineOR);
-            assertEquals(0, robotOR.déposer(null));
+            robotOR.recolter(mineOR);
+            assertEquals(0, robotOR.deposer(null));
             assertEquals(3, robotOR.getStockActuel());
         }
 

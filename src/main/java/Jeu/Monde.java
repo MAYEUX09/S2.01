@@ -154,9 +154,9 @@ public class Monde {
             int nouvelleColonne = ancienneColonne;
 
             if (action.equals("recolter")) {
-                robotActuel.récolter(grille[ancienneLigne][ancienneColonne].getMine());
+                robotActuel.recolter(grille[ancienneLigne][ancienneColonne].getMine());
             } else if (action.equals("deposer")) {
-                robotActuel.déposer(grille[ancienneLigne][ancienneColonne].getEntrepot());
+                robotActuel.deposer(grille[ancienneLigne][ancienneColonne].getEntrepot());
             } else {
                 if (action.equals("nord")) nouvelleLigne--;
                 else if (action.equals("sud")) nouvelleLigne++;

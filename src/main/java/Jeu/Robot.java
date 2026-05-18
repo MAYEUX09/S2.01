@@ -33,7 +33,7 @@ public class Robot {
     }
 
 
-    public int récolter(Mine mineCible) {
+    public int recolter(Mine mineCible) {
         if (mineCible != null && mineCible.getTypeMinerai().equals(this.typeDeSpecialisation)) {
             int espaceLibreDansLeSac = this.capaciteStockageMaximale - this.quantiteStockeeActuellement;
             int quantiteAExtraire = Math.min(this.puissanceExtraction, espaceLibreDansLeSac);
@@ -45,7 +45,7 @@ public class Robot {
         return 0;
     }
 
-    public int déposer(Entrepot entrepotCible) {
+    public int deposer(Entrepot entrepotCible) {
         if (entrepotCible != null && entrepotCible.getTypeMinerai().equals(this.typeDeSpecialisation)) {
             int quantiteADeposer = this.quantiteStockeeActuellement;
             entrepotCible.stocker(quantiteADeposer);
