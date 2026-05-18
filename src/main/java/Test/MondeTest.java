@@ -7,6 +7,151 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class MondeTest {
+        private Mine mineOr;
+        private Mine mineNickel;
+        private Entrepot entrepotOr;
+        private Entrepot entrepotNickel;
+        private Robot robotOr;
+        private Robot robotNickel;
+        private Monde monde;
+
+    @Test
+    void testCreationMineOR() {
+        assertEquals(1, mineOR.getId());
+        assertEquals("OR", mineOR.getTypeMinerai());
+        assertEquals(80, mineOR.getCapaciteActuel());
+        assertEquals(80, mineOR.getCapaciteMax());
+    }
+
+    @Test
+    void testExtractionNormaleMine() {
+        int quantiteExtraite = mineOR.extraire(10);
+
+        assertEquals(10, quantiteExtraite);
+        assertEquals(70, mineOR.getCapaciteActuel());
+    }
+
+    @Test
+    void testExtractionSuperieureStockMine() {
+        int quantiteExtraite = mineNI.extraire(100);
+
+        assertEquals(60, quantiteExtraite);
+        assertEquals(0, mineNI.getCapaciteActuel());
+    }
+
+    @Test
+    void testDeplacementRobotVersEst() {
+        robotOR.avancer("est");
+
+        assertEquals(0, robotOR.getLigne());
+        assertEquals(1, robotOR.getColonne());
+    }
+
+    @Test
+    void testDeplacementRobotVersSud() {
+        robotOR.avancer("sud");
+
+        assertEquals(1, robotOR.getLigne());
+        assertEquals(0, robotOR.getColonne());
+    }
+
+    @Test
+    void testRecolteBonneMine() {
+        int recolte = robotOR.récolter(mineOR);
+
+        assertEquals(3, recolte);
+        assertEquals(3, robotOR.getStockActuel());
+        assertEquals(77, mineOR.getCapaciteActuel());
+    }
+
+    @Test
+    void testRecolteMauvaisTypeMine() {
+        int recolte = robotOR.récolter(mineNI);
+
+        assertEquals(0, recolte);
+        assertEquals(0, robotOR.getStockActuel());
+        assertEquals(60, mineNI.getCapaciteActuel());
+    }
+
+    @Test
+    void testRecolteJusquaCapaciteMaxRobot() {
+        int recolte1 = robotOR.récolter(mineOR);
+        int recolte2 = robotOR.récolter(mineOR);
+        int recolte3 = robotOR.récolter(mineOR);
+
+        assertEquals(3, recolte1);
+        assertEquals(3, recolte2);
+        assertEquals(1, recolte3);
+        assertEquals(7, robotOR.getStockActuel());
+        assertEquals(73, mineOR.getCapaciteActuel());
+    }
+
+    @Test
+    void testDeposerDansBonEntrepot() {
+        robotOR.récolter(mineOR);
+        int quantiteDeposee = robotOR.déposer(entrepotOR);
+
+        assertEquals(3, quantiteDeposee);
+        assertEquals(0, robotOR.getStockActuel());
+        assertEquals(3, entrepotOR.getStockActuel());
+    }
+
+    @Test
+    void testDeposerDansMauvaisEntrepot() {
+        robotOR.récolter(mineOR);
+        int quantiteDeposee = robotOR.déposer(entrepotNI);
+
+        assertEquals(0, quantiteDeposee);
+        assertEquals(3, robotOR.getStockActuel());
+        assertEquals(0, entrepotNI.getStockActuel());
+    }
+
+    @Test
+    void testDeposerSacVide() {
+        int quantiteDeposee = robotOR.déposer(entrepotOR);
+
+        assertEquals(0, quantiteDeposee);
+        assertEquals(0, robotOR.getStockActuel());
+        assertEquals(0, entrepotOR.getStockActuel());
+    }
+
+    @Test
+    void testStockageEntrepot() {
+        entrepotOR.stocker(5);
+        entrepotOR.stocker(2);
+
+        assertEquals(7, entrepotOR.getStockActuel());
+    }
+
+    @Test
+    void testSecteurTerrain() {
+        assertNotNull(secteurTerrain.getTerrain());
+        assertNull(secteurTerrain.getEau());
+        assertNull(secteurTerrain.getMine());
+        assertNull(secteurTerrain.getEntrepot());
+        assertNull(secteurTerrain.getRobot());
+    }
+
+    @Test
+    void testSecteurEau() {
+        assertNotNull(secteurEau.getEau());
+        assertNull(secteurEau.getTerrain());
+        assertNull(secteurEau.getMine());
+        assertNull(secteurEau.getEntrepot());
+        assertNull(secteurEau.getRobot());
+    }
+
+    @Test
+    void testAjouterMineEntrepotRobotDansSecteurTerrain() {
+        secteurTerrain.setMine(mineOR);
+        secteurTerrain.setEntrepot(entrepotOR);
+        secteurTerrain.setRobot(robotOR);
+
+        assertEquals(mineOR, secteurTerrain.getMine());
+        assertEquals(entrepotOR, secteurTerrain.getEntrepot());
+        assertEquals(robotOR, secteurTerrain.getRobot());
+    }
+
 // Partie 2
     private Mine mineOR;
     private Mine mineNI;
@@ -27,18 +172,18 @@ public class MondeTest {
         secteurEau     = new Secteur(new Eau());
     }
 
-        @AfterEach
-        void tearDown() {
-            mineOR = null; mineNI = null;
-            robotOR = null;
-            entrepotOR = null; entrepotNI = null;
-            secteurTerrain = null; secteurEau = null;
-        }
+    @AfterEach
+    void tearDown() {
+        mineOR = null; mineNI = null;
+        robotOR = null;
+        entrepotOR = null; entrepotNI = null;
+        secteurTerrain = null; secteurEau = null;
+    }
 
         //Mine
 
-        @Test
-        void testExtraireNormal() {
+    @Test
+    void testExtraireNormal() {
             assertEquals(5, mineOR.extraire(5));
             assertEquals(75, mineOR.getCapaciteActuel());
         }
@@ -100,7 +245,6 @@ public class MondeTest {
         void testRecolterMineNull() {
             assertEquals(0, robotOR.récolter(null));
         }
-
 
         @Test
         void testDeposerNormal() {
@@ -207,5 +351,5 @@ public class MondeTest {
             secteurTerrain.setRobot(robotOR);
             assertNotNull(secteurTerrain.getMine());
             assertNotNull(secteurTerrain.getRobot());
-        }
     }
+}
