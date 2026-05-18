@@ -178,6 +178,18 @@ public class Monde {
         numeroTour++;
     }
 
+    public ArrayList<Robot> getLesRobots() {
+        return lesRobots;
+    }
+
+    public int getNumeroTour() {
+        return numeroTour;
+    }
+
+    public void incrementerTour() {
+        numeroTour++;
+    }
+
     public Secteur[][] getGrille() {
         return this.grille;
     }
