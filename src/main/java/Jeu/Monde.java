@@ -178,6 +178,10 @@ public class Monde {
         numeroTour++;
     }
 
+    public Secteur[][] getGrille() {
+        return this.grille;
+    }
+
     public void affichermonde() {
         System.out.print("   ");
         for (int colonne = 0; colonne < 10; colonne++) {
