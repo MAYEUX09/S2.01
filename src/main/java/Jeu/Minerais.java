@@ -5,12 +5,12 @@ public abstract class Minerais {
     private int nombreTotalMinerais;
     private String nomDuType;
 
-    public Minerais(int quantiteInitiale, String nomLeType){
+    public Minerais(int quantiteInitiale, String nomDuType){
         this.nombreTotalMinerais = quantiteInitiale;
-        this.nomDuType = nomLeType;
+        this.nomDuType = nomDuType;
     }
 
-    public int getNbMineraise(){
+    public int getNbMinerais(){
         return this.nombreTotalMinerais;
     }
 
