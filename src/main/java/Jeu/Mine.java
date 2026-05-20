@@ -27,6 +27,7 @@ public class Mine {
         return typeDeMinerai;
     }
 
+
     public int getCapaciteActuel() {
         return quantiteRestante;
     }

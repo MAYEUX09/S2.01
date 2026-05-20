@@ -5,11 +5,16 @@ public class Monde {
     private Secteur[][] grille;
     private ArrayList<Robot> lesRobots;
     private int numeroTour;
+    private ArrayList<Mine> lesMines;
+    private ArrayList<Entrepot> lesentrepot;
+
 
     public Monde() {
         this.grille = new Secteur[10][10];
         this.lesRobots = new ArrayList<>();
         this.numeroTour = 1;
+        this.lesMines = new ArrayList<>();
+        this.lesentrepot = new ArrayList<>();
     }
 
     public void initialisation() {
@@ -21,7 +26,7 @@ public class Monde {
             }
         }
 
-        int nbEau = generateurAlea.nextInt(11);
+        int nbEau = generateurAlea.nextInt(11)+1;
         for (int eauPlacee = 0; eauPlacee < nbEau; ) {
             int ligneAlea = generateurAlea.nextInt(10);
             int colonneAlea = generateurAlea.nextInt(10);
@@ -47,9 +52,11 @@ public class Monde {
                         && grille[ligneAlea][colonneAlea].getMine() == null
                         && grille[ligneAlea][colonneAlea].getEntrepot() == null) {
 
-                    grille[ligneAlea][colonneAlea].setMine(
-                            new Mine(idMine, typeActuel, capaciteMines, capaciteMines)
-                    );
+                    Mine nouvelleMine = new Mine(idMine, typeActuel, capaciteMines, capaciteMines);
+
+                    grille[ligneAlea][colonneAlea].setMine(nouvelleMine);
+
+                    lesMines.add(nouvelleMine);
 
                     idMine++;
                     minesPlacees++;
@@ -60,12 +67,19 @@ public class Monde {
             while (!entrepotPlace) {
                 int ligneAlea = generateurAlea.nextInt(10);
                 int colonneAlea = generateurAlea.nextInt(10);
-                if (grille[ligneAlea][colonneAlea].getEau() == null && grille[ligneAlea][colonneAlea].getEntrepot() == null && grille[ligneAlea][colonneAlea].getMine() == null) {
-                    grille[ligneAlea][colonneAlea].setEntrepot(new Entrepot(idEntrepot, typeActuel, ligneAlea, colonneAlea));
-                    entrepotPlace = true;
-                    idEntrepot++ ;
-                }
 
+                if (grille[ligneAlea][colonneAlea].getEau() == null
+                        && grille[ligneAlea][colonneAlea].getEntrepot() == null
+                        && grille[ligneAlea][colonneAlea].getMine() == null) {
+
+                    Entrepot nouvelEntrepot = new Entrepot(idEntrepot, typeActuel, ligneAlea, colonneAlea);
+
+                    grille[ligneAlea][colonneAlea].setEntrepot(nouvelEntrepot);
+                    lesentrepot.add(nouvelEntrepot);
+
+                    entrepotPlace = true;
+                    idEntrepot++;
+                }
             }
         }
 
@@ -182,6 +196,12 @@ public class Monde {
         return lesRobots;
     }
 
+    public ArrayList<Mine> getlesmines(){
+        return lesMines;
+    }
+    public ArrayList<Entrepot> getlesentrepot(){
+        return lesentrepot;
+    }
     public int getNumeroTour() {
         return numeroTour;
     }

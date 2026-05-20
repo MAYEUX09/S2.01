@@ -101,7 +101,7 @@ public class PanelCommandes extends JPanel {
         Mine mine = monde.getGrille()[robot.getLigne()][robot.getColonne()].getMine();
         int quantite = robot.recolter(mine);
 
-        if (quantite > 0) {
+        if (quantite > 0 || robot.getCredit() == 1){
             JOptionPane.showMessageDialog(this, "Récolte de " + quantite + " minerai(x).");
         } else {
             JOptionPane.showMessageDialog(this, "Récolte impossible !");

@@ -88,4 +88,9 @@ public class Robot {
     public int getCredit(){return credit;}
 
     public void resetcredit(){this.credit = 1;}
+
+    @Override
+    public String toString() {
+        return "Robot " + this.identifiant + " Spé : " + this.typeDeSpecialisation;
+    }
 }
