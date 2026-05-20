@@ -46,10 +46,8 @@ public class PanelGrille extends JPanel {
                 if (secteur.getEau() != null) {
                     caseSecteur.setLayout(new BorderLayout());
 
-                    ImageIcon icone = new ImageIcon("C:\\Users\\alanp\\Pictures\\ocean.jpg");
-                    Image img = icone.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH);
-
-                    JLabel labelEau = new JLabel(new ImageIcon(img));
+                    ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("images/ocean.jpg"));
+                    JLabel labelEau = new JLabel(new ImageIcon(icone.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
                     labelEau.setHorizontalAlignment(SwingConstants.CENTER);
                     labelEau.setVerticalAlignment(SwingConstants.CENTER);
 
