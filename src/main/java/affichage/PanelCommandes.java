@@ -5,6 +5,7 @@ import Jeu.Robot;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 
 public class PanelCommandes extends JPanel {
@@ -74,7 +75,7 @@ public class PanelCommandes extends JPanel {
             if (direction.equals("ouest")) nouvelleColonne--;
         }
         else{
-            JOptionPane.showMessageDialog(this, "Tu as voulu tricher ? c'est mal !");
+            JOptionPane.showMessageDialog(this, "Tu as voulu tricher ? c'est mal ! vous avez déjà jouer");
         }
 
         boolean estDansLimites =
@@ -101,7 +102,7 @@ public class PanelCommandes extends JPanel {
         Mine mine = monde.getGrille()[robot.getLigne()][robot.getColonne()].getMine();
         int quantite = robot.recolter(mine);
 
-        if (quantite > 0 || robot.getCredit() == 1){
+        if (quantite > 0 && robot.getCredit() == 1){
             JOptionPane.showMessageDialog(this, "Récolte de " + quantite + " minerai(x).");
         } else {
             JOptionPane.showMessageDialog(this, "Récolte impossible !");
@@ -118,7 +119,7 @@ public class PanelCommandes extends JPanel {
         Entrepot entrepot = monde.getGrille()[robot.getLigne()][robot.getColonne()].getEntrepot();
         int quantite = robot.deposer(entrepot);
 
-        if (quantite > 0) {
+        if (quantite > 0 && robot.getCredit()==1) {
             JOptionPane.showMessageDialog(this, "Dépôt de " + quantite + " minerai(x).");
         } else {
             JOptionPane.showMessageDialog(this, "Dépôt impossible !");
@@ -128,10 +129,18 @@ public class PanelCommandes extends JPanel {
     }
 
     private void passerTour() {
+        for (Robot robot : monde.getLesRobots()) {
+            if (robot.getCredit() > 0) {
+                JOptionPane.showMessageDialog(this, "Impossible tout les robots n'ont pas jouer");
+                return;
+            }
+        }
+
         monde.incrementerTour();
-        for (Robot robot : monde.getLesRobots()){
+        for (Robot robot : monde.getLesRobots()) {
             robot.resetcredit();
         }
+
         fenetre.rafraichir();
     }
 }
