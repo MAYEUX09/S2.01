@@ -2,18 +2,19 @@ package affichage;
 
 import Jeu.*;
 import javax.swing.*;
-import javax.swing.border.*;
 import java.awt.*;
-
 
 public class PanelGrille extends JPanel {
 
     private Monde monde;
-
+    private Image imgEau = new ImageIcon(getClass().getClassLoader().getResource("images/ocean.jpg")).getImage();
+    private Image imgTerrain = new ImageIcon(getClass().getClassLoader().getResource("images/terrain.jpg")).getImage();
+    private Image imgMine = new ImageIcon(getClass().getClassLoader().getResource("images/mine.jpg")).getImage();
+    private Image imgEntrepot = new ImageIcon(getClass().getClassLoader().getResource("images/entrepot.jpg")).getImage();
+    private Image imgRobot = new ImageIcon(getClass().getClassLoader().getResource("images/robot.jpg")).getImage();
 
     public PanelGrille(Monde monde) {
         this.monde = monde;
-
         setLayout(new GridLayout(10, 10, 4, 4));
         setBackground(new Color(210, 210, 210));
         setBorder(BorderFactory.createCompoundBorder(
@@ -24,7 +25,6 @@ public class PanelGrille extends JPanel {
         rafraichir();
     }
 
-
     public void rafraichir() {
         removeAll();
 
@@ -32,82 +32,69 @@ public class PanelGrille extends JPanel {
             for (int colonne = 0; colonne < 10; colonne++) {
                 Secteur secteur = monde.getGrille()[ligne][colonne];
 
-                JPanel caseSecteur = new JPanel(new BorderLayout());
-                caseSecteur.setPreferredSize(new Dimension(60, 60));
+                JPanel caseSecteur = new JPanel() {
+                    public void paintComponent(Graphics g) {
+                        super.paintComponent(g);
+
+                        int w = getWidth();
+                        int h = getHeight();
+
+                        g.setFont(new Font("Arial", Font.BOLD, 12));
+
+                        if (secteur.getEau() != null) {
+                            g.drawImage(imgEau, 0, 0, w, h, this);
+                            return;
+                        } else {
+                            g.drawImage(imgTerrain, 0, 0, w, h, this);
+                        }
+
+                        boolean aRobot = false;
+                        if (secteur.getRobot() != null) {
+                            aRobot = true;
+                        }
+
+                        boolean aBatiment = false;
+                        if (secteur.getMine() != null || secteur.getEntrepot() != null) {
+                            aBatiment = true;
+                        }
+
+                        int hauteurBatiment;
+                        int yRobot;
+                        int hauteurRobot;
+
+                        if (aRobot == true && aBatiment == true) {
+                            hauteurBatiment = h / 2;
+                            yRobot = h / 2;
+                            hauteurRobot = h / 2;
+                        }
+                        else {
+                            hauteurBatiment = h;
+                            yRobot = 0;
+                            hauteurRobot = h;
+                        }
+                        if (secteur.getMine() != null) {
+                            g.drawImage(imgMine, 0, 0, w, hauteurBatiment, this);
+                            g.setColor(Color.WHITE);
+                            g.drawString("M" + secteur.getMine().getId(), 2, 12);
+                        } else if (secteur.getEntrepot() != null) {
+                            g.drawImage(imgEntrepot, 0, 0, w, hauteurBatiment, this);
+                            g.setColor(Color.BLACK);
+                            g.drawString("E" + secteur.getEntrepot().getId(), 2, 12);
+                        }
+                        if (aRobot == true) {
+                            g.drawImage(imgRobot, 0, yRobot, w, hauteurRobot, this);
+                            g.setColor(Color.BLACK);
+                            g.drawString("R" + secteur.getRobot().getId(), 2, yRobot + 12);
+                        }
+                    }
+                };
+
                 caseSecteur.setBorder(BorderFactory.createLineBorder(new Color(90, 90, 90), 1));
-                caseSecteur.setBackground(new Color(245, 245, 245));
-
-                if (secteur.getEau() != null) {
-
-                    caseSecteur.add(creerLabelImage("images/ocean.jpg"), BorderLayout.CENTER);
-
-                } else if (secteur.getMine() == null && secteur.getEntrepot() == null && secteur.getRobot() == null) {
-
-                    caseSecteur.add(creerLabelImage("images/terrain.jpg"), BorderLayout.CENTER);
-
-                } else {
-
-                    JLayeredPane calque = new JLayeredPane();
-                    calque.setPreferredSize(new Dimension(60, 60));
-
-                    if (secteur.getMine() != null) {
-                        calque.add(creerLabelImageBounds("images/mine.jpg", 80, 80), JLayeredPane.DEFAULT_LAYER);
-                        calque.add(creerLabelId("M" + secteur.getMine().getId(), Color.WHITE), JLayeredPane.PALETTE_LAYER);
-
-                    } else if (secteur.getEntrepot() != null) {
-                        calque.add(creerLabelImageBounds("images/entrepot.jpg", 80, 80), JLayeredPane.DEFAULT_LAYER);
-                        calque.add(creerLabelId("E" + secteur.getEntrepot().getId(), Color.BLACK), JLayeredPane.PALETTE_LAYER);
-
-                    } else {
-                        calque.add(creerLabelImageBounds("images/terrain.jpg", 60, 60), JLayeredPane.DEFAULT_LAYER);
-                    }
-
-                    if (secteur.getRobot() != null) {
-                        calque.add(creerLabelImageBounds("images/robot.jpg", 80, 70), JLayeredPane.MODAL_LAYER);
-                        calque.add(creerLabelId("R" + secteur.getRobot().getId(), Color.BLACK), JLayeredPane.POPUP_LAYER);
-                    }
-
-                    caseSecteur.add(calque, BorderLayout.CENTER);
-                }
-
                 add(caseSecteur);
             }
         }
 
         revalidate();
         repaint();
-    }
-
-
-    private JLabel creerLabelImage(String chemin) {
-        ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource(chemin));
-        JLabel label = new JLabel(new ImageIcon(icone.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setVerticalAlignment(SwingConstants.CENTER);
-        return label;
-    }
-
-    private JLabel creerLabelImageBounds(String chemin, int largeur, int hauteur) {
-        ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource(chemin));
-        JLabel label = new JLabel(new ImageIcon(icone.getImage().getScaledInstance(largeur, hauteur, Image.SCALE_SMOOTH)));
-        label.setBounds(0, 0, largeur, hauteur);
-        return label;
-    }
-
-    private JLabel creerLabelId(String texte, Color couleur) {
-        JLabel label = new JLabel(texte);
-        label.setBounds(2, 2, 40, 20);
-        label.setFont(new Font("Arial", Font.BOLD, 12));
-        label.setForeground(couleur);
-        return label;
-    }
-
-
-    private void styliserLabel(JLabel label) {
-        label.setOpaque(true);
-        label.setFont(new Font("Arial", Font.BOLD, 14));
-        label.setBorder(BorderFactory.createEmptyBorder(2, 2, 2, 2));
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setVerticalAlignment(SwingConstants.CENTER);
     }
 }
