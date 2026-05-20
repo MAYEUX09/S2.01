@@ -78,17 +78,26 @@ public class PanelGrille extends JPanel {
                     }
 
                     if (secteur.getRobot() != null) {
-                        bas.setText("R" + secteur.getRobot().getId());
-                        bas.setBackground(new Color(200, 230, 200));
-                        bas.setForeground(new Color(20, 90, 20));
+                        caseSecteur.setLayout(new BorderLayout());
+
+                        ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("images/robot.jpg"));
+
+                        JLabel labelrobot = new JLabel(new ImageIcon(icone.getImage().getScaledInstance(85, 85, Image.SCALE_SMOOTH)));
+                        labelrobot.setHorizontalAlignment(SwingConstants.CENTER);
+                        labelrobot.setVerticalAlignment(SwingConstants.CENTER);
+
+                        caseSecteur.add(labelrobot, BorderLayout.CENTER);
+
+                        if (secteur.getMine() != null || secteur.getEntrepot() != null) {
+                            caseSecteur.add(haut, BorderLayout.NORTH);
+                        }
+
                     } else {
                         bas.setBackground(new Color(250, 250, 250));
+                        caseSecteur.add(haut);
+                        caseSecteur.add(bas);
                     }
-                    caseSecteur.add(haut);
-                    caseSecteur.add(bas);
-
                 }
-
                 add(caseSecteur);
             }
         }
