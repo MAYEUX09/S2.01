@@ -44,13 +44,16 @@ public class PanelGrille extends JPanel {
                 styliserLabel(bas);
 
                 if (secteur.getEau() != null) {
-                    Color couleurEau = new Color(120, 190, 255);
-                    haut.setText("X X");
-                    bas.setText("X X");
-                    haut.setBackground(couleurEau);
-                    bas.setBackground(couleurEau);
-                    haut.setForeground(Color.WHITE);
-                    bas.setForeground(Color.WHITE);
+                    caseSecteur.setLayout(new BorderLayout());
+
+                    ImageIcon icone = new ImageIcon("C:\\Users\\alanp\\Pictures\\ocean.jpg");
+                    Image img = icone.getImage().getScaledInstance(120, 100, Image.SCALE_SMOOTH);
+
+                    JLabel labelEau = new JLabel(new ImageIcon(img));
+                    labelEau.setHorizontalAlignment(SwingConstants.CENTER);
+                    labelEau.setVerticalAlignment(SwingConstants.CENTER);
+
+                    caseSecteur.add(labelEau, BorderLayout.CENTER);
 
                 } else {
                     if (secteur.getMine() != null) {
@@ -72,10 +75,10 @@ public class PanelGrille extends JPanel {
                     } else {
                         bas.setBackground(new Color(250, 250, 250));
                     }
+                    caseSecteur.add(haut);
+                    caseSecteur.add(bas);
                 }
 
-                caseSecteur.add(haut);
-                caseSecteur.add(bas);
                 add(caseSecteur);
             }
         }
