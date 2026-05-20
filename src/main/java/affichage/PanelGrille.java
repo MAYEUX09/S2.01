@@ -11,10 +11,12 @@ public class PanelGrille extends JPanel {
     private Image imgTerrain = new ImageIcon(getClass().getClassLoader().getResource("images/terrain.jpg")).getImage();
     private Image imgMine = new ImageIcon(getClass().getClassLoader().getResource("images/mine.jpg")).getImage();
     private Image imgEntrepot = new ImageIcon(getClass().getClassLoader().getResource("images/entrepot.jpg")).getImage();
-    private Image imgRobot = new ImageIcon(getClass().getClassLoader().getResource("images/robot.jpg")).getImage();
+    private Image imgRobotOr = new ImageIcon(getClass().getClassLoader().getResource("images/robotor.jpg")).getImage();
+    private Image imgRobotNi = new ImageIcon(getClass().getClassLoader().getResource("images/robotni.jpg")).getImage();
 
     public PanelGrille(Monde monde) {
         this.monde = monde;
+
         setLayout(new GridLayout(10, 10, 4, 4));
         setBackground(new Color(210, 210, 210));
         setBorder(BorderFactory.createCompoundBorder(
@@ -33,7 +35,8 @@ public class PanelGrille extends JPanel {
                 Secteur secteur = monde.getGrille()[ligne][colonne];
 
                 JPanel caseSecteur = new JPanel() {
-                    public void paintComponent(Graphics g) {
+                    @Override
+                    protected void paintComponent(Graphics g) {
                         super.paintComponent(g);
 
                         int w = getWidth();
@@ -66,12 +69,12 @@ public class PanelGrille extends JPanel {
                             hauteurBatiment = h / 2;
                             yRobot = h / 2;
                             hauteurRobot = h / 2;
-                        }
-                        else {
+                        } else {
                             hauteurBatiment = h;
                             yRobot = 0;
                             hauteurRobot = h;
                         }
+
                         if (secteur.getMine() != null) {
                             g.drawImage(imgMine, 0, 0, w, hauteurBatiment, this);
                             g.setColor(Color.WHITE);
@@ -81,9 +84,18 @@ public class PanelGrille extends JPanel {
                             g.setColor(Color.BLACK);
                             g.drawString("E" + secteur.getEntrepot().getId(), 2, 12);
                         }
+
                         if (aRobot == true) {
-                            g.drawImage(imgRobot, 0, yRobot, w, hauteurRobot, this);
-                            g.setColor(Color.BLACK);
+                            Image imageChoisie;
+                            if (secteur.getRobot().getType().equalsIgnoreCase("OR")) {
+                                imageChoisie = imgRobotOr;
+                            } else {
+                                imageChoisie = imgRobotNi;
+                            }
+
+                            g.drawImage(imageChoisie, 0, yRobot, w, hauteurRobot, this);
+
+                            g.setColor(Color.WHITE);
                             g.drawString("R" + secteur.getRobot().getId(), 2, yRobot + 12);
                         }
                     }
