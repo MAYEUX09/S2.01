@@ -53,6 +53,17 @@ public class PanelGrille extends JPanel {
 
                     caseSecteur.add(labelEau, BorderLayout.CENTER);
 
+                } else if (secteur.getMine() == null && secteur.getEntrepot() == null && secteur.getRobot() == null) {
+
+                    caseSecteur.setLayout(new BorderLayout());
+
+                    ImageIcon icone = new ImageIcon(getClass().getClassLoader().getResource("images/terrain.jpg"));
+                    JLabel terrain = new JLabel(new ImageIcon(icone.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH)));
+                    terrain.setHorizontalAlignment(SwingConstants.CENTER);
+                    terrain.setVerticalAlignment(SwingConstants.CENTER);
+
+                    caseSecteur.add(terrain, BorderLayout.CENTER);
+
                 } else {
                     if (secteur.getMine() != null) {
                         haut.setText("M" + secteur.getMine().getId());
@@ -75,6 +86,7 @@ public class PanelGrille extends JPanel {
                     }
                     caseSecteur.add(haut);
                     caseSecteur.add(bas);
+
                 }
 
                 add(caseSecteur);
@@ -83,6 +95,7 @@ public class PanelGrille extends JPanel {
 
         revalidate();
         repaint();
+
     }
 
 
