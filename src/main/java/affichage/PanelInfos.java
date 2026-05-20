@@ -87,6 +87,7 @@ public class PanelInfos extends JPanel {
                     .append(" ").append(robot.getType())
                     .append(" Stock: ").append(robot.getStockActuel())
                     .append(" / ").append(robot.getStockage())
+                    .append(" Credit restant :  ").append(robot.getCredit())
                     .append("\n");
         }
 
