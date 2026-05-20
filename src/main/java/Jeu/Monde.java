@@ -194,6 +194,18 @@ public class Monde {
         return this.grille;
     }
 
+    public void setGrille(Secteur[][] grille) {
+        this.grille = grille;
+    }
+
+    public void setLesRobots(ArrayList<Robot> lesRobots) {
+        this.lesRobots = lesRobots;
+    }
+
+    public void setNumeroTour(int numeroTour) {
+        this.numeroTour = numeroTour;
+    }
+
     public void affichermonde() {
         System.out.print("   ");
         for (int colonne = 0; colonne < 10; colonne++) {
@@ -291,3 +303,5 @@ public class Monde {
         System.out.println();
     }
 }
+
+
