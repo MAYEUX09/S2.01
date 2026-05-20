@@ -6,18 +6,13 @@ import Jeu.Robot;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Panneau d'informations affichant le tour actuel et la liste des robots.
- */
+
 public class PanelInfos extends JPanel {
 
     private Monde monde;
     private JTextArea texte;
 
-    /**
-     * Constructeur du panneau d'informations.
-     * @param monde monde à afficher
-     */
+
     public PanelInfos(Monde monde) {
         this.monde = monde;
         setLayout(new BorderLayout());
@@ -29,9 +24,6 @@ public class PanelInfos extends JPanel {
         rafraichir();
     }
 
-    /**
-     * Actualise le contenu du panneau d'informations.
-     */
     public void rafraichir() {
         StringBuilder sb = new StringBuilder();
 

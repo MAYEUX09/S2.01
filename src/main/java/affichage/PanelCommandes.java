@@ -6,22 +6,13 @@ import Jeu.Robot;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Panneau des commandes utilisateur.
- * Permet de choisir un robot et de lui faire effectuer une action :
- * déplacement, récolte, dépôt, ou passage au tour suivant.
- */
+
 public class PanelCommandes extends JPanel {
 
     private Monde monde;
     private fenetredejeu2 fenetre;
     private JComboBox<Robot> choixRobot;
 
-    /**
-     * Constructeur du panneau de commandes.
-     * @param monde monde du jeu
-     * @param fenetre fenêtre principale à rafraîchir après chaque action
-     */
     public PanelCommandes(Monde monde, fenetredejeu2 fenetre) {
         this.monde = monde;
         this.fenetre = fenetre;
@@ -63,18 +54,10 @@ public class PanelCommandes extends JPanel {
         boutonTour.addActionListener(e -> passerTour());
     }
 
-    /**
-     * Retourne le robot actuellement sélectionné dans la liste.
-     * @return robot sélectionné
-     */
     private Robot robotSelectionne() {
         return (Robot) choixRobot.getSelectedItem();
     }
 
-    /**
-     * Déplace le robot dans la direction indiquée si la case est valide.
-     * @param direction nord, sud, est ou ouest
-     */
     private void deplacerRobot(String direction) {
         Robot robot = robotSelectionne();
         if (robot == null) return;
@@ -84,10 +67,15 @@ public class PanelCommandes extends JPanel {
         int nouvelleLigne = ancienneLigne;
         int nouvelleColonne = ancienneColonne;
 
-        if (direction.equals("nord")) nouvelleLigne--;
-        if (direction.equals("sud")) nouvelleLigne++;
-        if (direction.equals("est")) nouvelleColonne++;
-        if (direction.equals("ouest")) nouvelleColonne--;
+        if (robot.getCredit() == 1){
+            if (direction.equals("nord")) nouvelleLigne--;
+            if (direction.equals("sud")) nouvelleLigne++;
+            if (direction.equals("est")) nouvelleColonne++;
+            if (direction.equals("ouest")) nouvelleColonne--;
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Tu as voulu tricher ? c'est mal !");
+        }
 
         boolean estDansLimites =
                 nouvelleLigne >= 0 && nouvelleLigne < 10 &&
@@ -106,9 +94,6 @@ public class PanelCommandes extends JPanel {
         }
     }
 
-    /**
-     * Fait récolter le robot s'il se trouve sur une mine compatible.
-     */
     private void recolterRobot() {
         Robot robot = robotSelectionne();
         if (robot == null) return;
@@ -125,9 +110,7 @@ public class PanelCommandes extends JPanel {
         fenetre.rafraichir();
     }
 
-    /**
-     * Fait déposer le robot s'il se trouve sur l'entrepôt compatible.
-     */
+
     private void deposerRobot() {
         Robot robot = robotSelectionne();
         if (robot == null) return;
@@ -144,11 +127,11 @@ public class PanelCommandes extends JPanel {
         fenetre.rafraichir();
     }
 
-    /**
-     * Passe au tour suivant.
-     */
     private void passerTour() {
         monde.incrementerTour();
+        for (Robot robot : monde.getLesRobots()){
+            robot.resetcredit();
+        }
         fenetre.rafraichir();
     }
 }

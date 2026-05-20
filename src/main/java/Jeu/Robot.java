@@ -8,6 +8,7 @@ public class Robot {
     private int quantiteStockeeActuellement;
     private int positionLigne;
     private int positionColonne;
+    private int credit;
 
 
     public Robot(int id, String type, int stockageMax, int extraction, int ligne, int colonne) {
@@ -18,17 +19,22 @@ public class Robot {
         this.positionLigne = ligne;
         this.positionColonne = colonne;
         this.quantiteStockeeActuellement = 0;
+        this.credit = 1;
     }
 
     public void avancer(String direction) {
         if (direction.equals("nord")) {
             this.positionLigne--;
+            this.credit--;
         } else if (direction.equals("sud")) {
             this.positionLigne++;
+            this.credit--;
         } else if (direction.equals("est")) {
             this.positionColonne++;
+            this.credit--;
         } else if (direction.equals("ouest")) {
             this.positionColonne--;
+            this.credit--;
         }
     }
 
@@ -78,4 +84,8 @@ public class Robot {
     public int getStockage() {
         return capaciteStockageMaximale;
     }
+
+    public int getCredit(){return credit;}
+
+    public void resetcredit(){this.credit = 1;}
 }
