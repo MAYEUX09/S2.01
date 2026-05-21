@@ -35,8 +35,7 @@ public class PanelGrille extends JPanel {
                 Secteur secteur = monde.getGrille()[ligne][colonne];
 
                 JPanel caseSecteur = new JPanel() {
-                    @Override
-                    protected void paintComponent(Graphics g) {
+                    public void paintComponent(Graphics g) {
                         super.paintComponent(g);
 
                         int w = getWidth();
