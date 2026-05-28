@@ -52,28 +52,38 @@ public class Robot {
 
     public String[][] generergrille(Secteur[][] grille){
         String[][] grilletempo = new String[10][10];
-        for (int i = 0; i < grilletempo.length; i++){
-            for (int j = 0; j < grilletempo.length; j++){
-                if (grille[i][j].getEau() != null){
-                    grilletempo[i][j] = "XX    ";
+        for (int i = 0; i < grilletempo.length; i++) {
+            for (int j = 0; j < grilletempo.length; j++) {
+                if (grille[i][j].getEau() != null) {
+                    grilletempo[i][j] = "XX";
                 }
-                if (grille[i][j].getEntrepot() != null && grille[i][j].getEntrepot().getTypeMinerai().equals("NI")){
-                    grilletempo[i][j] = "eNI";
+
+                if (grille[i][j].getMine() != null) {
+                    String speM = grille[i][j].getMine().getTypeMinerai();
+                    if (grille[i][j].getRobot() != null) {
+                        String robot = String.valueOf(grille[i][j].getRobot().getId());
+                        String speR = grille[i][j].getRobot().getType();
+                        grilletempo[i][j] = "m" + speM + " " + "r" + speR + " " + robot;
+                    } else {
+                        grilletempo[i][j] = "m" + speM;
+                    }
                 }
-                if (grille[i][j].getEntrepot() != null && grille[i][j].getEntrepot().getTypeMinerai().equals("OR")){
-                    grilletempo[i][j] = "eOR";
+
+                if (grille[i][j].getEntrepot() != null) {
+                    String speE = grille[i][j].getEntrepot().getTypeMinerai();
+                    if (grille[i][j].getRobot() != null) {
+                        String robot = String.valueOf(grille[i][j].getRobot().getId());
+                        String speR = grille[i][j].getRobot().getType();
+                        grilletempo[i][j] = "e" + speE + " " + "r" + speR + " " + robot;
+                    } else {
+                        grilletempo[i][j] = "e" + speE;
+                    }
                 }
-                if (grille[i][j].getMine() != null && grille[i][j].getMine().getTypeMinerai().equals("NI")){
-                    grilletempo[i][j] = "mNI";
-                }
-                if (grille[i][j].getMine() != null && grille[i][j].getMine().getTypeMinerai().equals("OR")){
-                    grilletempo[i][j] = "mOR";
-                }
-                if (grille[i][j].getRobot() != null && grille[i][j].getRobot().getType().equals("OR")){
-                    grilletempo[i][j] = "rOR";
-                }
-                if(grille[i][j].getRobot() != null && grille[i][j].getRobot().getType().equals("NI")){
-                    grilletempo[i][j] = "rNI";
+
+                if (grille[i][j].getRobot() != null && grille[i][j].getEntrepot() == null && grille[i][j].getMine() != null) {
+                    String robot = String.valueOf(grille[i][j].getRobot().getId());
+                    String speR = grille[i][j].getRobot().getType();
+                    grilletempo[i][j] = "r" + speR + " " + robot;
                 }
             }
         }
