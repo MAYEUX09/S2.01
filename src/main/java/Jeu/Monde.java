@@ -25,7 +25,6 @@ public class Monde {
                 grille[ligne][colonne] = new Secteur(new Terrain(ligne * 10 + colonne));
             }
         }
-
         int nbEau = generateurAlea.nextInt(11)+1;
         for (int eauPlacee = 0; eauPlacee < nbEau; ) {
             int ligneAlea = generateurAlea.nextInt(10);
@@ -42,7 +41,6 @@ public class Monde {
 
         for (String typeActuel : typesMinerais) {
             int nombreMinesAVolonte = generateurAlea.nextInt(2) + 1;
-
             for (int minesPlacees = 0; minesPlacees < nombreMinesAVolonte; ) {
                 int capaciteMines = generateurAlea.nextInt(50, 100);
                 int ligneAlea = generateurAlea.nextInt(10);
