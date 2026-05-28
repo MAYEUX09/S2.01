@@ -63,6 +63,12 @@ public class Robot {
                 if (grille[i][j].getEntrepot() != null && grille[i][j].getEntrepot().getTypeMinerai().equals("OR")){
                     grilletempo[i][j] = "eOR";
                 }
+                if (grille[i][j].getMine() != null && grille[i][j].getMine().getTypeMinerai().equals("NI")){
+                    grilletempo[i][j] = "mNI";
+                }
+                if (grille[i][j].getMine() != null && grille[i][j].getMine().getTypeMinerai().equals("OR")){
+                    grilletempo[i][j] = "mOR";
+                }
                 if (grille[i][j].getRobot() != null && grille[i][j].getRobot().getType().equals("OR")){
                     grilletempo[i][j] = "rOR";
                 }
