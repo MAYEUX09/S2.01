@@ -1,5 +1,7 @@
 package Jeu;
 
+import java.util.Objects;
+
 public class Robot {
     private int identifiant;
     private String typeDeSpecialisation; // "NI" ou "OR"
@@ -35,6 +37,52 @@ public class Robot {
         } else if (direction.equals("ouest")) {
             this.positionColonne--;
             this.credit--;
+        }
+    }
+
+    // SAE2.02
+    public String modedurobot (){
+        if (this.quantiteStockeeActuellement < this.capaciteStockageMaximale){
+            return "Mine";
+        }
+        else {
+            return "Entrepot";
+        }
+    }
+
+    public String[][] generergrille(Secteur[][] grille){
+        String[][] grilletempo = new String[10][10];
+        for (int i = 0; i < grilletempo.length; i++){
+            for (int j = 0; j < grilletempo.length; j++){
+                if (grille[i][j].getEau() != null){
+                    grilletempo[i][j] = "XX    ";
+                }
+                if (grille[i][j].getEntrepot() != null && grille[i][j].getEntrepot().getTypeMinerai().equals("NI")){
+                    grilletempo[i][j] = "eNI";
+                }
+                if (grille[i][j].getEntrepot() != null && grille[i][j].getEntrepot().getTypeMinerai().equals("OR")){
+                    grilletempo[i][j] = "eOR";
+                }
+                if (grille[i][j].getRobot() != null && grille[i][j].getRobot().getType().equals("OR")){
+                    grilletempo[i][j] = "rOR";
+                }
+                if(grille[i][j].getRobot() != null && grille[i][j].getRobot().getType().equals("NI")){
+                    grilletempo[i][j] = "rNI";
+                }
+            }
+        }
+        return grilletempo;
+    }
+
+    public void avancerautomatiquement(Secteur[][] grille){
+        String mode = modedurobot();
+        String[][] grilletempo = new String[10][10];
+        grilletempo = generergrille(grille);
+        if (mode.equals("Mine")){
+
+        }
+        else{
+
         }
     }
 
