@@ -54,28 +54,6 @@ public class Robot {
         }
     }
 
-    public String[][] generergrille(Secteur[][] grille) {
-        String[][] grilletempo = new String[10][10];
-        for (int i = 0; i < grilletempo.length; i++) {
-            for (int j = 0; j < grilletempo[i].length; j++) {
-                if (grille[i][j].getEau() != null) {
-                    grilletempo[i][j] = "XX";
-                } else if (grille[i][j].getEntrepot() != null && grille[i][j].getEntrepot().getTypeMinerai().equals("NI")) {
-                    grilletempo[i][j] = "eNI";
-                } else if (grille[i][j].getEntrepot() != null && grille[i][j].getEntrepot().getTypeMinerai().equals("OR")) {
-                    grilletempo[i][j] = "eOR";
-                } else if (grille[i][j].getRobot() != null && grille[i][j].getRobot().getType().equals("OR")) {
-                    grilletempo[i][j] = "rOR";
-                } else if (grille[i][j].getRobot() != null && grille[i][j].getRobot().getType().equals("NI")) {
-                    grilletempo[i][j] = "rNI";
-                } else {
-                    grilletempo[i][j] = " . ";
-                }
-            }
-        }
-        return grilletempo;
-    }
-
     public String executerDijkstra(Secteur[][] grille, int targetLigne, int targetColonne) {
         Map<Point, Integer> dist = new HashMap<>();
         Map<Point, Point> prev = new HashMap<>();
