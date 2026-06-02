@@ -77,85 +77,49 @@ public class Robot {
     }
 
     public String executerDijkstra(Secteur[][] grille, int targetLigne, int targetColonne) {
-        Map<Point, Integer> dist = new HashMap<>();
         Map<Point, Point> prev = new HashMap<>();
-        PriorityQueue<Point> Q = new PriorityQueue<>(Comparator.comparingInt(dist::get));
+        List<Point> file = new ArrayList<>();
+        Point source = new Point(positionLigne, positionColonne), cible = new Point(targetLigne, targetColonne);
 
-        int taille = 10;
+        file.add(source);
+        prev.put(source, null); // Sert aussi à marquer la case comme visitée
 
-        for (int l = 0; l < taille; l++) {
-            for (int c = 0; c < taille; c++) {
-                Point p = new Point(l, c);
-                dist.put(p, Integer.MAX_VALUE);
-                prev.put(p, null);
-            }
-        }
+        // 1. Recherche du chemin
+        while (!file.isEmpty()) {
+            Point u = file.remove(0);
+            if (u.equals(cible)) break;
 
-        Point source = new Point(this.positionLigne, this.positionColonne);
-        Point target = new Point(targetLigne, targetColonne);
+            int[][] directions = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}}; // Nord, Sud, Est, Ouest
+            for (int[] d : directions) {
+                Point v = new Point(u.ligne + d[0], u.colonne + d[1]);
 
-        dist.put(source, 0);
-        Q.add(source);
-
-        while (!Q.isEmpty()) {
-            Point u = Q.poll();
-
-            if (u.equals(target)) break;
-
-            int[][] directions = {{u.ligne - 1, u.colonne}, {u.ligne + 1, u.colonne}, {u.ligne, u.colonne + 1}, {u.ligne, u.colonne - 1}};
-
-            for (int[] dir : directions) {
-                int vl = dir[0];
-                int vc = dir[1];
-
-                if (vl >= 0 && vl < taille && vc >= 0 && vc < taille) {
-                    Point v = new Point(vl, vc);
-
-                    boolean isObstacle = grille[vl][vc].getEau() != null;
-                    if (grille[vl][vc].getRobot() != null && !v.equals(target)) {
-                        isObstacle = true;
-                    }
-
-                    if (!isObstacle) {
-                        int alt = dist.get(u) + 1;
-
-                        if (alt < dist.get(v)) {
-                            Q.remove(v);
-
-                            dist.put(v, alt);
-                            prev.put(v, u);
-
-                            Q.add(v);
-                        }
+                // Vérification : limites de la grille, si non visité, et sans obstacle
+                if (v.ligne >= 0 && v.ligne < 10 && v.colonne >= 0 && v.colonne < 10 && !prev.containsKey(v)) {
+                    if (grille[v.ligne][v.colonne].getEau() == null && (grille[v.ligne][v.colonne].getRobot() == null || v.equals(cible))) {
+                        prev.put(v, u);
+                        file.add(v);
                     }
                 }
             }
         }
 
-        if (prev.get(target) == null) return null;
+        if (!prev.containsKey(cible)) return null; // Aucun chemin possible
 
-        List<String> cheminComplet = new ArrayList<>();
-        Point courant = target;
+        // 2. Remontée du chemin (Affichage + Direction)
+        List<String> chemin = new ArrayList<>();
+        Point etape = cible;
 
-        while (!courant.equals(source)) {
-            cheminComplet.add("(" + courant.colonne + "," + courant.ligne + ")");
-            courant = prev.get(courant);
+        while (!prev.get(etape).equals(source)) {
+            chemin.add("(" + etape.colonne + "," + etape.ligne + ")");
+            etape = prev.get(etape);
         }
+        chemin.add("(" + etape.colonne + "," + etape.ligne + ")");
+        Collections.reverse(chemin);
 
-        Collections.reverse(cheminComplet);
+        System.out.println("   [Chemin Robot " + this.identifiant + "] : (" + source.colonne + "," + source.ligne + ") -> " + String.join(" -> ", chemin));
 
-        System.out.println("   [Chemin Robot " + this.identifiant + "] : (" + this.positionColonne + "," + this.positionLigne + ") -> " + String.join(" -> ", cheminComplet));
-        Point premiereEtape = target;
-        while (!prev.get(premiereEtape).equals(source)) {
-            premiereEtape = prev.get(premiereEtape);
-        }
-
-        if (premiereEtape.ligne < source.ligne) return "nord";
-        if (premiereEtape.ligne > source.ligne) return "sud";
-        if (premiereEtape.colonne > source.colonne) return "est";
-        if (premiereEtape.colonne < source.colonne) return "ouest";
-
-        return null;
+        // 3. Retour de la direction
+        return etape.ligne < source.ligne ? "nord" : etape.ligne > source.ligne ? "sud" : etape.colonne > source.colonne ? "est" : "ouest";
     }
 
     public int recolter(Mine mineCible) {
