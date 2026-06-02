@@ -8,7 +8,6 @@ public class Monde {
     private ArrayList<Mine> lesMines;
     private ArrayList<Entrepot> lesentrepot;
 
-
     public Monde() {
         this.grille = new Secteur[10][10];
         this.lesRobots = new ArrayList<>();
@@ -104,7 +103,6 @@ public class Monde {
             }
         }
 
-
         boolean robotNiPlace = false;
         while (!robotNiPlace) {
             int ligneAlea = generateurAlea.nextInt(10);
@@ -148,7 +146,7 @@ public class Monde {
                 }
             }
         }
-        }
+    }
 
 
     public void tour() {
@@ -156,12 +154,70 @@ public class Monde {
 
         for (Robot robotActuel : lesRobots) {
             this.affichermonde();
-            System.out.println("Robot " + robotActuel.getId() + " (" + robotActuel.getType() + ") en [" + robotActuel.getLigne() + "," + robotActuel.getColonne() + "] (Stock:" + robotActuel.getStockActuel() + ")");
-            System.out.print("Action (nord,sud,est,ouest,recolter,deposer) : ");
-            String action = clavier.nextLine().toLowerCase();
+            System.out.println("Robot " + robotActuel.getId() + " (" + robotActuel.getType() + ") en [" + robotActuel.getLigne() + "," + robotActuel.getColonne() + "] (Stock:" + robotActuel.getStockActuel() + "/" + robotActuel.getStockage() + ")");
+
+            System.out.print("Action (nord,sud,est,ouest,recolter,deposer,auto) : ");
+            String action = clavier.nextLine().toLowerCase().trim();
 
             int ancienneLigne = robotActuel.getLigne();
             int ancienneColonne = robotActuel.getColonne();
+
+            if (action.equals("auto")) {
+                Secteur sec = grille[ancienneLigne][ancienneColonne];
+
+                String modeActuel = robotActuel.modeDuRobot(); // "Mine" ou "Entrepot"
+                String specialisation = robotActuel.getType(); // "NI" ou "OR"
+
+                if (modeActuel.equals("Entrepot") && sec.getEntrepot() != null && sec.getEntrepot().getTypeMinerai().equals(specialisation)) {
+                    action = "deposer";
+                } else if (modeActuel.equals("Mine") && sec.getMine() != null && sec.getMine().getTypeMinerai().equals(specialisation) && sec.getMine().getCapaciteActuel() > 0) {
+                    action = "recolter";
+                } else {
+
+                    int targetL = -1, targetC = -1;
+
+                    if (modeActuel.equals("Entrepot")) {
+                        for (int l = 0; l < 10; l++) {
+                            for (int c = 0; c < 10; c++) {
+                                Entrepot e = grille[l][c].getEntrepot();
+                                if (e != null && e.getTypeMinerai().equals(specialisation)) {
+                                    targetL = l;
+                                    targetC = c;
+                                    break;
+                                }
+                            }
+                            if (targetL != -1) break;
+                        }
+                    } else if (modeActuel.equals("Mine")) {
+                        for (int l = 0; l < 10; l++) {
+                            for (int c = 0; c < 10; c++) {
+                                Mine m = grille[l][c].getMine();
+                                if (m != null && m.getTypeMinerai().equals(specialisation) && m.getCapaciteActuel() > 0) {
+                                    targetL = l;
+                                    targetC = c;
+                                    break;
+                                }
+                            }
+                            if (targetL != -1) break;
+                        }
+                    }
+
+                    if (targetL != -1) {
+                        String dir = robotActuel.executerDijkstra(grille, targetL, targetC);
+                        if (dir != null) {
+                            action = dir;
+                            System.out.println("-> Le robot commence son trajet vers le " + action);
+                        } else {
+                            System.out.println("-> [Dijkstra] Impossible de trouver un chemin !");
+                            continue;
+                        }
+                    } else {
+                        System.out.println("-> Aucun objectif valide trouvé pour le robot.");
+                        continue;
+                    }
+                }
+            }
+
             int nouvelleLigne = ancienneLigne;
             int nouvelleColonne = ancienneColonne;
 
@@ -182,7 +238,7 @@ public class Monde {
                     robotActuel.avancer(action);
                     grille[nouvelleLigne][nouvelleColonne].setRobot(robotActuel);
                 } else {
-                    System.out.println("Mouvement impossible !");
+                    System.out.println("-> /!\\ Action impossible : un obstacle (Eau ou Robot) bloque la case !");
                 }
             }
         }
@@ -321,5 +377,3 @@ public class Monde {
         System.out.println();
     }
 }
-
-

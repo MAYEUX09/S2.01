@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: Jeu.MainConsole
+Main-Class: Jeu.MainGraphique
 
