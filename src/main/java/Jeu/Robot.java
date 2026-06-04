@@ -55,6 +55,7 @@ public class Robot {
     }
 
     public String executerDijkstra(Secteur[][] grille, int targetLigne, int targetColonne) {
+        if (positionLigne == targetLigne && positionColonne == targetColonne) return null;
         Map<Point, Point> prev = new HashMap<>();
         List<Point> file = new ArrayList<>();
         Point source = new Point(positionLigne, positionColonne), cible = new Point(targetLigne, targetColonne);
