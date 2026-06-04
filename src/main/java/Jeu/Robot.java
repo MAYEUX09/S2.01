@@ -60,7 +60,7 @@ public class Robot {
         Point source = new Point(positionLigne, positionColonne), cible = new Point(targetLigne, targetColonne);
 
         file.add(source);
-        prev.put(source, null); // Sert aussi à marquer la case comme visitée
+        prev.put(source, null);
 
         // 1. Recherche du chemin
         while (!file.isEmpty()) {
@@ -97,7 +97,15 @@ public class Robot {
         System.out.println("   [Chemin Robot " + this.identifiant + "] : (" + source.colonne + "," + source.ligne + ") -> " + String.join(" -> ", chemin));
 
         // 3. Retour de la direction
-        return etape.ligne < source.ligne ? "nord" : etape.ligne > source.ligne ? "sud" : etape.colonne > source.colonne ? "est" : "ouest";
+        if (etape.ligne < source.ligne) {
+            return "nord";
+        } else if (etape.ligne > source.ligne) {
+            return "sud";
+        } else if (etape.colonne > source.colonne) {
+            return "est";
+        } else {
+            return "ouest";
+        }
     }
 
     public int recolter(Mine mineCible) {
