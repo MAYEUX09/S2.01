@@ -56,27 +56,40 @@ public class Robot {
 
     public String executerDijkstra(Secteur[][] grille, int targetLigne, int targetColonne) {
         if (positionLigne == targetLigne && positionColonne == targetColonne) return null;
+
         Map<Point, Point> prev = new HashMap<>();
-        List<Point> file = new ArrayList<>();
+        Map<Point, Integer> dist = new HashMap<>();
+        PriorityQueue<PointDistance> file = new PriorityQueue<>(Comparator.comparingInt(p -> p.distance));
+
         Point source = new Point(positionLigne, positionColonne), cible = new Point(targetLigne, targetColonne);
 
-        file.add(source);
+        file.add(new PointDistance(source, 0));
         prev.put(source, null);
+        dist.put(source, 0);
 
         // 1. Recherche du chemin
         while (!file.isEmpty()) {
-            Point u = file.remove(0);
+            PointDistance courant = file.poll();
+            Point u = courant.point;
+
             if (u.equals(cible)) break;
 
             int[][] directions = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}}; // Nord, Sud, Est, Ouest
             for (int[] d : directions) {
                 Point v = new Point(u.ligne + d[0], u.colonne + d[1]);
 
-                // Vérification : limites de la grille, si non visité, et sans obstacle
-                if (v.ligne >= 0 && v.ligne < 10 && v.colonne >= 0 && v.colonne < 10 && !prev.containsKey(v)) {
-                    if (grille[v.ligne][v.colonne].getEau() == null && (grille[v.ligne][v.colonne].getRobot() == null || v.equals(cible))) {
-                        prev.put(v, u);
-                        file.add(v);
+                // Vérification : limites de la grille et sans obstacle
+                if (v.ligne >= 0 && v.ligne < 10 && v.colonne >= 0 && v.colonne < 10) {
+                    if (grille[v.ligne][v.colonne].getEau() == null
+                            && (grille[v.ligne][v.colonne].getRobot() == null || v.equals(cible))) {
+
+                        int nouveauCout = dist.get(u) + 1;
+
+                        if (!dist.containsKey(v) || nouveauCout < dist.get(v)) {
+                            dist.put(v, nouveauCout);
+                            prev.put(v, u);
+                            file.add(new PointDistance(v, nouveauCout));
+                        }
                     }
                 }
             }
@@ -144,6 +157,18 @@ public class Robot {
     public String toString() {
         return "Robot " + this.identifiant + " Spé : " + this.typeDeSpecialisation;
     }
+
+
+    private static class PointDistance {
+        Point point;
+        int distance;
+
+        PointDistance(Point point, int distance) {
+            this.point = point;
+            this.distance = distance;
+        }
+    }
+
 
     private static class Point {
         int ligne;

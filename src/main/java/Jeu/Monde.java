@@ -168,9 +168,12 @@ public class Monde {
                 String modeActuel = robotActuel.modeDuRobot(); // "Mine" ou "Entrepot"
                 String specialisation = robotActuel.getType(); // "NI" ou "OR"
 
-                if (modeActuel.equals("Entrepot") && sec.getEntrepot() != null && sec.getEntrepot().getTypeMinerai().equals(specialisation)) {
+                if (modeActuel.equals("Entrepot") && sec.getEntrepot() != null
+                        && sec.getEntrepot().getTypeMinerai().equals(specialisation)) {
                     action = "deposer";
-                } else if (modeActuel.equals("Mine") && sec.getMine() != null && sec.getMine().getTypeMinerai().equals(specialisation) && sec.getMine().getCapaciteActuel() > 0) {
+                } else if (modeActuel.equals("Mine") && sec.getMine() != null
+                        && sec.getMine().getTypeMinerai().equals(specialisation)
+                        && sec.getMine().getCapaciteActuel() > 0) {
                     action = "recolter";
                 } else {
 
