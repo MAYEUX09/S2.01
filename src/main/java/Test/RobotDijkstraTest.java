@@ -71,17 +71,19 @@ class RobotDijkstraTest {
     }
 
     // - Cas 6 : L41 - eau présente = Vrai (C3=V)
-    // Eau sur (5,6), chemin doit contourner -> passe par (4,5) -> (4,6) -> (5,6)...
-    // Mais cible (5,7) accessible par contournement -> premier pas = "nord"
+    // Eau sur (5,6), chemin doit contourner
+    // Mais cible (5,7) accessible par contournement -> premier pas = "sud"
     @Test
-    void T6_testDijkstra_EauContournée() {
-        grille[5][6] = new Secteur(new Eau());
+    void T6_testDijkstra_ContournementEau() {
+        grille[5][6] = new Secteur(new Eau());  // obstacle eau entre robot et cible
         String resultat = robot.executerDijkstra(grille, 5, 7);
+        // Le chemin contourne par le sud
         assertNotNull(resultat);
-        assertNotEquals("est", resultat);
+        assertTrue(resultat.equals("sud"));
     }
 
     // - Cas 7 : L42 - robot présent et v != target (C4=V) -> obstacle
+    // C'est pareil que pour le précedent sauf qu'au lieu de l'eau il y a un robot
     // Robot sur (5,6), cible en (5,7) -> doit contourner
     @Test
     void T7_testDijkstra_ContournementRobot() {
