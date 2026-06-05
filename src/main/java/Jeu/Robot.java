@@ -102,13 +102,13 @@ public class Robot {
         Point etape = cible;
 
         while (!prev.get(etape).equals(source)) {
-            chemin.add("(" + etape.colonne + "," + etape.ligne + ")");
+            chemin.add("(" + etape.ligne + "," + etape.colonne + ")");
             etape = prev.get(etape);
         }
-        chemin.add("(" + etape.colonne + "," + etape.ligne + ")");
+        chemin.add("(" + etape.ligne + "," + etape.colonne + ")");
         Collections.reverse(chemin);
 
-        System.out.println("   [Chemin Robot " + this.identifiant + "] : (" + source.colonne + "," + source.ligne + ") -> " + String.join(" -> ", chemin));
+        System.out.println("   [Chemin Robot " + this.identifiant + "] : (" + source.ligne + "," + source.colonne + ") -> " + String.join(" -> ", chemin));
 
         // 3. Retour de la direction
         if (etape.ligne < source.ligne) {
