@@ -78,7 +78,6 @@ class RobotDijkstraTest {
         grille[5][6] = new Secteur(new Eau());  // obstacle eau entre robot et cible
         String resultat = robot.executerDijkstra(grille, 5, 7);
         // Le chemin contourne par le sud
-        assertNotNull(resultat);
         assertTrue(resultat.equals("sud"));
     }
 
@@ -90,8 +89,7 @@ class RobotDijkstraTest {
         Robot autreRobot = new Robot(2, "NI", 7, 3, 5, 6);
         grille[5][6].setRobot(autreRobot);
         String resultat = robot.executerDijkstra(grille, 5, 7);
-        assertNotNull(resultat);
-        assertTrue(resultat.equals("nord") || resultat.equals("sud"));
+        assertTrue(resultat.equals("sud"));
     }
 
     // - Cas 8 : L42 - robot présent mais v == target (C4=F, C7=F)
