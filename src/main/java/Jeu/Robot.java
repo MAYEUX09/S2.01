@@ -84,7 +84,6 @@ public class Robot {
                             && (grille[v.ligne][v.colonne].getRobot() == null || v.equals(cible))) {
 
                         int nouveauCout = dist.get(u) + 1;
-
                         if (!dist.containsKey(v) || nouveauCout < dist.get(v)) {
                             dist.put(v, nouveauCout);
                             prev.put(v, u);
