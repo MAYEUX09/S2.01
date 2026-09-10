@@ -34,13 +34,7 @@ Le projet contient deux archives précompilées situées dans le dossier `out/ar
   java -jar out/artifacts/SAE01_jar/SAE01_console.jar
 
 * **Pour le mode Graphique :**
-```bash
-java -jar out/artifacts/SAE01_jar2/SAE01_graphique.jar
-```
+  ```bash
+  java -jar out/artifacts/SAE01_jar2/SAE01_graphique.jar
+  ```
 
-
-
-
-```
-
-```
